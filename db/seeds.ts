@@ -1,4 +1,6 @@
-// import db from "./index"
+import db from './index'
+import { USER_ROLE } from '../utils/userRole'
+import { hashPassword } from '../app/auth/auth-utils'
 
 /*
  * This seed function is executed when you run `blitz db seed`.
@@ -8,9 +10,31 @@
  * realistic data.
  */
 const seed = async () => {
-  // for (let i = 0; i < 5; i++) {
-  //   await db.project.create({ data: { name: "Project " + i } })
-  // }
+  for (const name of Object.values(USER_ROLE)) {
+    await db.role.create({
+      data: {
+        name,
+      },
+    })
+  }
+
+  await db.user.create({
+    data: {
+      name: 'admin',
+      email: 'admin@example.com',
+      hashedPassword: await hashPassword('exampleadmin'),
+      roles: {
+        connect: [
+          {
+            name: USER_ROLE.Admin,
+          },
+          {
+            name: USER_ROLE.User,
+          },
+        ],
+      },
+    },
+  })
 }
 
 export default seed
