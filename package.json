@@ -36,7 +36,7 @@
   "dependencies": {
     "@prisma/cli": "2.10.1",
     "@prisma/client": "2.10.1",
-    "blitz": "0.24.3",
+    "blitz": "0.25.0-canary.1",
     "passport-google-oauth": "2.0.0",
     "react": "0.0.0-experimental-7f28234f8",
     "react-dom": "0.0.0-experimental-7f28234f8",
