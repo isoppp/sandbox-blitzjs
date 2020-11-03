@@ -36,9 +36,12 @@ export default passportAuth({
             name: profile?.displayName,
           },
           update: { email },
+          include: {
+            roles: true,
+          },
         })
 
-        const publicData = { userId: user.id, roles: [user.role], source: 'twitter' }
+        const publicData = { userId: user.id, roles: user.roles.map((r) => r.name), source: 'twitter' }
         cb(null, { publicData })
       },
     ),

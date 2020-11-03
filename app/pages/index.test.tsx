@@ -3,6 +3,7 @@ import { render } from 'test/utils'
 
 import Home from './index'
 import { useCurrentUser } from 'app/hooks/useCurrentUser'
+import { USER_ROLE } from '../../utils/userRole'
 
 jest.mock('app/hooks/useCurrentUser')
 const mockUseCurrentUser = useCurrentUser as jest.MockedFunction<typeof useCurrentUser>
@@ -17,10 +18,10 @@ test.skip('renders blitz documentation link', () => {
     id: 1,
     name: 'User',
     email: 'user@email.com',
-    roles: [{ name: 'ADMIN' }],
+    roles: [{ name: USER_ROLE.User }],
   })
 
   const { getByText } = render(<Home />)
-  const linkElement = getByText(/Documentation/i)
-  expect(linkElement).toBeInTheDocument()
+  const text = getByText(/Congrats/i)
+  expect(text).toBeInTheDocument()
 })

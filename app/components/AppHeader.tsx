@@ -14,7 +14,7 @@ const HeaderNavs = () => {
   const simpleUser = useCurrentUserFromSession()
   const [logoutMutation] = useMutation(logout)
 
-  if (simpleUser.isLoading) return ''
+  if (simpleUser.isLoading) return <></>
 
   if (!!simpleUser?.id) {
     return (
