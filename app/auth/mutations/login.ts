@@ -1,6 +1,6 @@
-import { Ctx } from "blitz"
-import { authenticateUser } from "app/auth/auth-utils"
-import { LoginInput, LoginInputType } from "../validations"
+import { Ctx } from 'blitz'
+import { authenticateUser } from 'app/auth/auth-utils'
+import { LoginInput, LoginInputType } from '../validations'
 
 export default async function login(input: LoginInputType, { session }: Ctx) {
   // This throws an error if input is invalid
@@ -9,7 +9,7 @@ export default async function login(input: LoginInputType, { session }: Ctx) {
   // This throws an error if credentials are invalid
   const user = await authenticateUser(email, password)
 
-  await session.create({ userId: user.id, roles: [user.role] })
+  await session.create({ userId: user.id, roles: user.roles.map((r) => r.name) })
 
   return user
 }
