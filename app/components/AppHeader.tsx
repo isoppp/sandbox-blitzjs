@@ -1,15 +1,13 @@
-import { useCurrentUser, useCurrentUserFromSession } from '../hooks/useCurrentUser'
+import { useCurrentUserFromSession } from '../hooks/useCurrentUser'
 import { Link, useMutation } from 'blitz'
 import logout from '../auth/mutations/logout'
-import { memo, Suspense } from 'react'
-import { getSessionContext } from '@blitzjs/server'
 
 export const getServerSideProps = async ({ req, res }) => {
   // const session = await getSessionContext(req, res)
   return { props: {} }
 }
 
-const HeaderNav = memo(() => {
+const HeaderNav = () => {
   return (
     <div className="font-bold">
       <Link href={'/posts'}>
@@ -17,9 +15,9 @@ const HeaderNav = memo(() => {
       </Link>
     </div>
   )
-})
+}
 
-const HeaderAuthNav = memo(() => {
+const HeaderAuthNav = () => {
   const simpleUser = useCurrentUserFromSession()
   const [logoutMutation] = useMutation(logout)
 
@@ -50,9 +48,9 @@ const HeaderAuthNav = memo(() => {
       </div>
     )
   }
-})
+}
 
-const AppHeader = () => {
+export default function AppHeader() {
   return (
     <div className="shadow-md">
       <div className="container mx-auto flex items-center gap-4 py-4">
@@ -73,5 +71,3 @@ const AppHeader = () => {
     </div>
   )
 }
-
-export default memo(AppHeader)
