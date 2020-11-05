@@ -1,4 +1,3 @@
-import { Button } from 'antd'
 import { useCurrentUser, useCurrentUserFromSession } from '../hooks/useCurrentUser'
 import { Link, useMutation } from 'blitz'
 import logout from '../auth/mutations/logout'
@@ -21,9 +20,7 @@ const HeaderNavs = () => {
       <>
         <div className="ml-auto">{[simpleUser?.id, simpleUser?.roles.join(', ')].join(' / ')}</div>
         <div>
-          <Button type="ghost" onClick={async () => await logoutMutation()}>
-            Logout
-          </Button>
+          <button onClick={async () => await logoutMutation()}>Logout</button>
         </div>
       </>
     )
@@ -31,13 +28,13 @@ const HeaderNavs = () => {
     return (
       <>
         <div className="ml-auto">
-          <Link href="/login" passHref>
-            <Button type="default">Login</Button>
+          <Link href="/login">
+            <a>Login</a>
           </Link>
         </div>
         <div>
-          <Link href="/signup" passHref>
-            <Button type="primary">Signup</Button>
+          <Link href="/signup">
+            <a>Signup</a>
           </Link>
         </div>
       </>

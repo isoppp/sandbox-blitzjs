@@ -4,7 +4,6 @@ import { queryCache } from 'react-query'
 import LoginForm from 'app/auth/components/LoginForm'
 
 import 'app/styles/index.css'
-import 'app/styles/antd.less'
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
