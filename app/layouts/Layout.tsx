@@ -5,9 +5,10 @@ import AppHeader from '../components/AppHeader'
 type LayoutProps = {
   title?: string
   children: ReactNode
+  containerClassName?: string
 }
 
-const Layout = ({ title, children }: LayoutProps) => {
+const Layout = ({ title, children, containerClassName = 'container mx-auto py-10' }: LayoutProps) => {
   return (
     <>
       <Head>
@@ -18,7 +19,7 @@ const Layout = ({ title, children }: LayoutProps) => {
       <header>
         <AppHeader />
       </header>
-      <main>{children}</main>
+      <main className={containerClassName}>{children}</main>
     </>
   )
 }
