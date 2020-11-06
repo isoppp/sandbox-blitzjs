@@ -11,15 +11,20 @@ export default async function getPosts({ where, orderBy, skip = 0, take }: GetPo
     orderBy,
     take,
     skip,
+    include: {
+      author: {
+        select: {
+          name: true,
+        },
+      },
+    },
   })
 
   const count = await db.post.count()
   const hasMore = typeof take === 'number' ? skip + take < count : false
-  const nextPage = hasMore ? { take, skip: skip + take! } : null
 
   return {
     posts,
-    nextPage,
     hasMore,
     count,
   }
