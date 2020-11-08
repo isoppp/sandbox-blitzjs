@@ -50,32 +50,29 @@ export const Post = () => {
     await refetch()
   }, [currentUserLike, deleteLikePostMutation, refetch])
 
-  // @ts-ignore
   return (
     <div>
-      {post.authorId === userId && (
-        <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold">Post {post.slug}</h1>
-          {post.authorId === userId && (
-            <div className="ml-auto flex items-center gap-4">
-              <Link href="/posts/[postId]/edit" as={`/posts/${post.slug}/edit`}>
-                <a>Edit</a>
-              </Link>
-              <button
-                type="button"
-                onClick={async () => {
-                  if (window.confirm('This will be deleted')) {
-                    await deletePostMutation({ where: { id: post.id } })
-                    router.push('/posts')
-                  }
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          )}
-        </div>
-      )}
+      <div className="flex items-center gap-4">
+        <h1 className="text-2xl font-bold">Post {post.slug}</h1>
+        {post.authorId === userId && (
+          <div className="ml-auto flex items-center gap-4">
+            <Link href={`/posts/${post.slug}/edit`}>
+              <a>Edit</a>
+            </Link>
+            <button
+              type="button"
+              onClick={async () => {
+                if (window.confirm('This will be deleted')) {
+                  await deletePostMutation({ where: { id: post.id } })
+                  router.push('/posts')
+                }
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
 
       <div>slug: {post.slug}</div>
       <div>content: {post.content}</div>
@@ -84,8 +81,8 @@ export const Post = () => {
       {isAuthor ? (
         <div className="inline-block border rounded-sm px-3 py-1">like count: {post?.likes?.length ?? 0}</div>
       ) : (
-        [
-          currentUserLike ? (
+        <>
+          {currentUserLike ? (
             <button className="border rounded-sm px-3 py-1 bg-teal-200" onClick={unlikePost} disabled={isAuthor}>
               liked! {post?.likes?.length ?? 0}
             </button>
@@ -93,8 +90,8 @@ export const Post = () => {
             <button className="border rounded-sm px-3 py-1" onClick={likePost} disabled={isAuthor}>
               like? {post?.likes?.length ?? 0}
             </button>
-          ),
-        ]
+          )}
+        </>
       )}
     </div>
   )
