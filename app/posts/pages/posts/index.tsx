@@ -27,10 +27,9 @@ export const PostsList = () => {
       </div>
       <ul className="divide-y">
         {posts.map((post) => {
-          console.log(post)
           return (
             <li key={post.id} className="pt-4 mt-4 first:mt-0">
-              <Link href="/posts/[postId]" as={`/posts/${post.id}`}>
+              <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
                 <a>
                   <div className="font-medium mb-3">{post.title}</div>
                   <div className="text-xs">

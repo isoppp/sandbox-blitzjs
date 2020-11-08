@@ -8,7 +8,7 @@ type Ref = HTMLInputElement
 
 const InputText = forwardRef<Ref, Props>((props, ref) => (
   <>
-    <input className="w-full border rounded-md py-1 px-4" {...props} ref={ref} />
+    <input className="form-input w-full" {...props} ref={ref} />
   </>
 ))
 
