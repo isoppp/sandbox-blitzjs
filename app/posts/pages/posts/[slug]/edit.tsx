@@ -8,7 +8,7 @@ import PostForm, { PostFormValues } from 'app/posts/components/PostForm'
 export const EditPost = () => {
   const router = useRouter()
   const params = useParams()
-  const [post] = useQuery(getPost, { where: { slug: params.slug } })
+  const [post] = useQuery(getPost, { where: { slug: params.slug as string } })
   const [updatePostMutation] = useMutation(updatePost)
   const onSubmit = useCallback(
     async (data: PostFormValues) => {
