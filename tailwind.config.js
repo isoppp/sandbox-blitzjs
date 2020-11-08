@@ -32,5 +32,7 @@ module.exports = {
         // options
       },
     ),
+    require('@tailwindcss/custom-forms'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 }
