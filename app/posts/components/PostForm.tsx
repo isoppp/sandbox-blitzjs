@@ -1,7 +1,4 @@
-import React, { useCallback } from 'react'
-import { useCurrentUserFromSession } from '../../hooks/useCurrentUser'
-import { useMutation, useRouter } from 'blitz'
-import createPost from '../mutations/createPost'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import InputText from 'app/components/forms/InputText'
