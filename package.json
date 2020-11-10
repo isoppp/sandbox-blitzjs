@@ -44,6 +44,7 @@
     "react-dom": "0.0.0-experimental-7f28234f8",
     "react-error-boundary": "2.3.2",
     "react-hook-form": "6.10.0",
+    "react-icons": "3.11.0",
     "react-query-devtools": "2.6.3",
     "secure-password": "4.0.0",
     "tailwind-css-variables": "2.0.3",

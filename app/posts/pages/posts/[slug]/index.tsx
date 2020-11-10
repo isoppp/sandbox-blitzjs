@@ -6,6 +6,7 @@ import deletePost from 'app/posts/mutations/deletePost'
 import { useCurrentUserFromSession } from 'app/hooks/useCurrentUser'
 import createLikePost from 'app/likePosts/mutations/createLikePost'
 import deleteLikePost from 'app/likePosts/mutations/deleteLikePost'
+import PostComments from '../../../components/PostComment'
 
 export const Post = () => {
   const router = useRouter()
@@ -52,47 +53,55 @@ export const Post = () => {
 
   return (
     <div>
-      <div className="flex items-center gap-4">
-        <h1 className="text-2xl font-bold">Post {post.slug}</h1>
-        {post.authorId === userId && (
-          <div className="ml-auto flex items-center gap-4">
-            <Link href={`/posts/${post.slug}/edit`}>
-              <a>Edit</a>
-            </Link>
-            <button
-              type="button"
-              onClick={async () => {
-                if (window.confirm('This will be deleted')) {
-                  await deletePostMutation({ where: { id: post.id } })
-                  router.push('/posts')
-                }
-              }}
-            >
-              Delete
-            </button>
-          </div>
+      <div>
+        <div className="flex items-center gap-4">
+          <h1 className="text-2xl font-bold">Post {post.title}</h1>
+          {post.authorId === userId && (
+            <div className="ml-auto flex items-center gap-4">
+              <Link href={`/posts/${post.slug}/edit`}>
+                <a>Edit</a>
+              </Link>
+              <button
+                type="button"
+                onClick={async () => {
+                  if (window.confirm('This will be deleted')) {
+                    await deletePostMutation({ where: { id: post.id } })
+                    router.push('/posts')
+                  }
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div>slug: {post.slug}</div>
+        <div>content: {post.content}</div>
+        <div>status: {post.status}</div>
+
+        {isAuthor ? (
+          <div className="inline-block border rounded-sm px-3 py-1">like count: {post?.likes?.length ?? 0}</div>
+        ) : (
+          <>
+            {currentUserLike ? (
+              <button className="border rounded-sm px-3 py-1 bg-teal-200" onClick={unlikePost} disabled={isAuthor}>
+                liked! {post?.likes?.length ?? 0}
+              </button>
+            ) : (
+              <button className="border rounded-sm px-3 py-1" onClick={likePost} disabled={isAuthor}>
+                like? {post?.likes?.length ?? 0}
+              </button>
+            )}
+          </>
         )}
       </div>
-
-      <div>slug: {post.slug}</div>
-      <div>content: {post.content}</div>
-      <div>status: {post.status}</div>
-
-      {isAuthor ? (
-        <div className="inline-block border rounded-sm px-3 py-1">like count: {post?.likes?.length ?? 0}</div>
-      ) : (
-        <>
-          {currentUserLike ? (
-            <button className="border rounded-sm px-3 py-1 bg-teal-200" onClick={unlikePost} disabled={isAuthor}>
-              liked! {post?.likes?.length ?? 0}
-            </button>
-          ) : (
-            <button className="border rounded-sm px-3 py-1" onClick={likePost} disabled={isAuthor}>
-              like? {post?.likes?.length ?? 0}
-            </button>
-          )}
-        </>
-      )}
+      <div className="pt-4 mt-4 border-t">
+        <div className="font-bold text-xl mb-3">Comments</div>
+        <Suspense fallback={'loading comments...'}>
+          <PostComments postId={post.id} userId={userId} />
+        </Suspense>
+      </div>
     </div>
   )
 }
