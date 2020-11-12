@@ -23,7 +23,11 @@ export const authenticateUser = async (email: string, password: string) => {
       email: email.toLowerCase(),
     },
     include: {
-      roles: true,
+      roles: {
+        select: {
+          name: true,
+        },
+      },
     },
   })
 

@@ -4,7 +4,7 @@ import db, { FindFirstLikePostArgs } from 'db'
 type GetLikePostInput = Pick<FindFirstLikePostArgs, 'where'>
 
 export default async function getLikePost({ where }: GetLikePostInput, ctx: Ctx) {
-  ctx.session.authorize()
+  // ctx.session.authorize()
 
   const likePost = await db.likePost.findFirst({ where })
 

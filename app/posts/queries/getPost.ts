@@ -4,8 +4,7 @@ import db, { FindFirstPostArgs } from 'db'
 type GetPostInput = Pick<FindFirstPostArgs, 'where'>
 
 export default async function getPost({ where }: GetPostInput, ctx: Ctx) {
-  ctx.session.authorize()
-
+  // ctx.session.authorize()
   const post = await db.post.findFirst({
     where,
     include: {

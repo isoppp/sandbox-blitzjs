@@ -4,7 +4,7 @@ import db, { FindManyPostCommentArgs } from 'db'
 type GetPostCommentsInput = Pick<FindManyPostCommentArgs, 'where' | 'orderBy' | 'skip' | 'take'>
 
 export default async function getPostComments({ where, orderBy, skip = 0, take }: GetPostCommentsInput, ctx: Ctx) {
-  ctx.session.authorize()
+  // ctx.session.authorize()
 
   const postComments = await db.postComment.findMany({
     where,

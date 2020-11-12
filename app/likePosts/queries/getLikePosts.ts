@@ -4,8 +4,7 @@ import db, { FindManyLikePostArgs } from 'db'
 type GetLikePostsInput = Pick<FindManyLikePostArgs, 'where' | 'orderBy' | 'skip' | 'take'>
 
 export default async function getLikePosts({ where, orderBy, skip = 0, take }: GetLikePostsInput, ctx: Ctx) {
-  ctx.session.authorize()
-
+  // ctx.session.authorize()
   const likePosts = await db.likePost.findMany({
     where,
     orderBy,

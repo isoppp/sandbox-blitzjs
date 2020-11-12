@@ -4,7 +4,7 @@ import db, { FindFirstPostCommentArgs } from 'db'
 type GetPostCommentInput = Pick<FindFirstPostCommentArgs, 'where'>
 
 export default async function getPostComment({ where }: GetPostCommentInput, ctx: Ctx) {
-  ctx.session.authorize()
+  // ctx.session.authorize()
 
   const postComment = await db.postComment.findFirst({ where })
 

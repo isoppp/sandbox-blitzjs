@@ -4,8 +4,7 @@ import db, { FindManyPostArgs } from 'db'
 type GetPostsInput = Pick<FindManyPostArgs, 'where' | 'orderBy' | 'skip' | 'take'>
 
 export default async function getPosts({ where, orderBy, skip = 0, take }: GetPostsInput, ctx: Ctx) {
-  ctx.session.authorize()
-
+  // ctx.session.authorize()
   const posts = await db.post.findMany({
     where,
     orderBy,
