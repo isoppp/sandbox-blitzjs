@@ -15,7 +15,11 @@ export default async function getPostComments({ where, orderBy, skip = 0, take }
       user: {
         select: {
           id: true,
-          name: true,
+          profile: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     },

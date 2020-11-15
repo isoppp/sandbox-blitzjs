@@ -1,6 +1,6 @@
 import React, { Suspense, useCallback, useMemo } from 'react'
 import Layout from 'app/layouts/Layout'
-import { Link, useRouter, useQuery, useParam, BlitzPage, useMutation, useParams } from 'blitz'
+import { Link, useRouter, useQuery, BlitzPage, useMutation, useParams } from 'blitz'
 import getPost from 'app/posts/queries/getPost'
 import deletePost from 'app/posts/mutations/deletePost'
 import { useCurrentUserFromSession } from 'app/hooks/useCurrentUser'

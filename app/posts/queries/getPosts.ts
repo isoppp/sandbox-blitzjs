@@ -13,7 +13,11 @@ export default async function getPosts({ where, orderBy, skip = 0, take }: GetPo
     include: {
       author: {
         select: {
-          name: true,
+          profile: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     },

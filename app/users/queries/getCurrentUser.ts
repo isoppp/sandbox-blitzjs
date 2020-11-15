@@ -1,13 +1,23 @@
-import { Ctx } from "blitz"
-import db from "db"
+import { Ctx } from 'blitz'
+import db from 'db'
 
 export default async function getCurrentUser(_ = null, { session }: Ctx) {
   if (!session.userId) return null
 
   const user = await db.user.findOne({
     where: { id: session.userId },
-    select: { id: true, name: true, email: true, roles: { select: { name: true } } },
+    select: {
+      id: true,
+      email: true,
+      displayId: true,
+      profile: {
+        select: {
+          name: true,
+          imageUrl: true,
+        },
+      },
+      roles: { select: { name: true } },
+    },
   })
-
   return user
 }

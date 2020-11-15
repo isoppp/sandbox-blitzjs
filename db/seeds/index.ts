@@ -20,7 +20,6 @@ const seed = async () => {
 
   const userAdmin = await db.user.create({
     data: {
-      name: 'admin',
       email: 'admin@example.com',
       hashedPassword: await hashPassword('example'),
       roles: {
@@ -38,7 +37,6 @@ const seed = async () => {
 
   const user = await db.user.create({
     data: {
-      name: 'user',
       email: 'user@example.com',
       hashedPassword: await hashPassword('example'),
       roles: {
@@ -48,12 +46,17 @@ const seed = async () => {
           },
         ],
       },
+      profile: {
+        create: {
+          name: 'user',
+          imageUrl: 'http://placekitten.com/350/350',
+        },
+      },
     },
   })
 
   const user2 = await db.user.create({
     data: {
-      name: 'user2',
       email: 'user2@example.com',
       hashedPassword: await hashPassword('example'),
       roles: {
