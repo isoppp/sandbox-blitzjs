@@ -51,6 +51,21 @@ const seed = async () => {
     },
   })
 
+  const user2 = await db.user.create({
+    data: {
+      name: 'user2',
+      email: 'user2@example.com',
+      hashedPassword: await hashPassword('example'),
+      roles: {
+        connect: [
+          {
+            name: USER_ROLE.User,
+          },
+        ],
+      },
+    },
+  })
+
   const post = await db.post.create({
     data: {
       title: 'Test Post',
@@ -58,6 +73,18 @@ const seed = async () => {
       author: {
         connect: {
           id: user.id,
+        },
+      },
+    },
+  })
+
+  await db.post.create({
+    data: {
+      title: 'Test Post',
+      content: 'test post content',
+      author: {
+        connect: {
+          id: user2.id,
         },
       },
     },
