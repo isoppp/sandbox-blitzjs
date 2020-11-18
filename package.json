@@ -37,6 +37,9 @@
   "dependencies": {
     "@prisma/cli": "2.11.0",
     "@prisma/client": "2.11.0",
+    "@uppy/aws-s3": "1.7.2",
+    "@uppy/core": "1.14.0",
+    "@uppy/react": "1.10.10",
     "aws-sdk": "2.793.0",
     "blitz": "0.25.0",
     "classnames": "2.2.6",
@@ -44,7 +47,6 @@
     "passport-google-oauth": "2.0.0",
     "react": "0.0.0-experimental-4ead6b530",
     "react-dom": "0.0.0-experimental-4ead6b530",
-    "react-dropzone": "11.2.4",
     "react-error-boundary": "3.0.2",
     "react-hook-form": "6.11.0",
     "react-icons": "3.11.0",
