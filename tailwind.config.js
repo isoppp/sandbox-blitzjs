@@ -1,7 +1,16 @@
 module.exports = {
   future: 'all',
   purge: ['{app,pages}/**/*.{js,jsx,ts,tsx}'],
-  theme: {},
+  theme: {
+    extend: {
+      minHeight: {
+        ...[14].reduce((acc, cur) => {
+          acc[cur] = `${cur * 0.25}rem`
+          return acc
+        }, {}),
+      },
+    },
+  },
   variants: {},
   plugins: [
     require('tailwind-css-variables')(

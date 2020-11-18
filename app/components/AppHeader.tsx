@@ -30,7 +30,9 @@ const UserProfile = ({ user }: { user: User }) => {
   )
 }
 
-const HeaderAuthNav = ({ user }: { user?: User }) => {
+const HeaderAuthNav = () => {
+  const { user } = useCurrentUser()
+
   if (user?.id) {
     return (
       <div className="flex items-center gap-4">
@@ -60,8 +62,6 @@ const HeaderAuthNav = ({ user }: { user?: User }) => {
 }
 
 const HeaderNav = () => {
-  const { user, isSuccess } = useCurrentUser()
-
   return (
     <div className="flex items-center gap-4">
       <div className="w-24">
@@ -78,7 +78,10 @@ const HeaderNav = () => {
           </Link>
         </div>
       </div>
-      <div className="ml-auto flex items-center gap-4">{isSuccess && <HeaderAuthNav user={user} />}</div>
+      <div className="ml-auto flex items-center gap-4 min-h-14">
+        {' '}
+        <Suspense fallback={''}>{<HeaderAuthNav />}</Suspense>
+      </div>
     </div>
   )
 }
@@ -87,9 +90,7 @@ export default function AppHeader() {
   return (
     <div className="shadow-md">
       <div className="container mx-auto py-4">
-        <Suspense fallback={''}>
-          <HeaderNav />
-        </Suspense>
+        <HeaderNav />
       </div>
     </div>
   )
