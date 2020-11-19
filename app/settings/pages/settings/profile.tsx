@@ -5,9 +5,9 @@ import superjson from 'superjson'
 import { getSessionContext } from '@blitzjs/server'
 import { validateAuthorizationConditions } from 'utils/authorization'
 import getUser from 'app/users/queries/getUser'
-import AccountForm, { AccountFormValues } from 'app/settings/components/AccountForm'
-import updateUser from 'app/users/mutations/updateUser'
 import logout from 'app/auth/mutations/logout'
+import ProfileForm, { ProfileFormValues } from 'app/settings/components/ProfileForm'
+import updateProfile from 'app/profiles/mutations/updateProfile'
 
 export async function getServerSideProps(context) {
   const session = await getSessionContext(context.req, context.res)
@@ -22,25 +22,22 @@ export async function getServerSideProps(context) {
   }
 }
 
-const SettingsAccountPage: BlitzPage<{ user: string }> = (props) => {
+const SettingsProfilePage: BlitzPage<{ user: string }> = (props) => {
   const router = useRouter()
   const user = useMemo(() => superjson.parse(props.user), [props.user]) as PromiseReturnType<typeof getUser>
-  const [updateUserMutation] = useMutation(updateUser)
+  const [updateUserMutation] = useMutation(updateProfile)
   const [logoutMutation] = useMutation(logout)
   const onSubmit = useCallback(
-    async (data: AccountFormValues) => {
-      const { password_confirmation, ...submitData } = data
+    async (data: ProfileFormValues) => {
       try {
         const updated = await updateUserMutation({
           where: {
             id: user.id,
           },
-          data: {
-            ...submitData,
-          },
+          data,
         })
         alert('Success!' + JSON.stringify(updated))
-        router.push(`/settings/account`)
+        router.push(`/settings/profile`)
       } catch (e) {
         console.log(e)
       }
@@ -51,7 +48,7 @@ const SettingsAccountPage: BlitzPage<{ user: string }> = (props) => {
   return (
     <div>
       <div className="my-8 first:mt-0">
-        <AccountForm onSubmit={onSubmit} initialValues={user} />
+        <ProfileForm onSubmit={onSubmit} initialValues={user} />
       </div>
 
       <div className="mt-6 flex justify-center">
@@ -66,6 +63,6 @@ const SettingsAccountPage: BlitzPage<{ user: string }> = (props) => {
   )
 }
 
-SettingsAccountPage.getLayout = (page) => <SettingsLayout title={'Edit Post'}>{page}</SettingsLayout>
+SettingsProfilePage.getLayout = (page) => <SettingsLayout title={'Edit Post'}>{page}</SettingsLayout>
 
-export default SettingsAccountPage
+export default SettingsProfilePage

@@ -3,6 +3,9 @@ module.exports = {
   purge: ['{app,pages}/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      height: {
+        '1/5': '20%',
+      },
       minHeight: {
         ...[14].reduce((acc, cur) => {
           acc[cur] = `${cur * 0.25}rem`
