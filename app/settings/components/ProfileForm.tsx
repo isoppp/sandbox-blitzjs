@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { PropsWithChildren, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import InputText from 'app/components/forms/InputText'
 import DragDropUploader from 'app/components/forms/DragDropUploader'
+import { UploadResult } from '@uppy/core'
 
 export type ProfileFormValues = {
   name: string
@@ -39,7 +40,11 @@ const ProfileForm = (props: ProfileFormProps) => {
       <FormItem title="Email:" className="mt-4 first:mt-0">
         <InputText type="text" name="name" placeholder="" ref={register} defaultValue={props.initialValues?.name} />
       </FormItem>
-      <DragDropUploader />
+      <DragDropUploader uploadAsTemp={true}>
+        {({ uploadedImageUrls }) =>
+          uploadedImageUrls.map((url) => <input type="hidden" name="imageUrl" value={url} key={url} />)
+        }
+      </DragDropUploader>
 
       <div className="mt-6 flex justify-center">
         <button className="border rounded-md py-2 px-4 focus:outline-none bg-teal-600 text-white font-bold">

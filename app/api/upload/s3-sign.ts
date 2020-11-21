@@ -20,13 +20,6 @@ function getSignedS3UrlForPut(file: { filename: string; contentType: string }): 
     ContentType: file.contentType,
   }
 
-  console.log({
-    AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY,
-    AWS_S3_BUCKET_NAME,
-    file,
-  })
-
   return new Promise((resolve, reject) => {
     s3.getSignedUrl('putObject', params, (err, url) => {
       if (err) {
