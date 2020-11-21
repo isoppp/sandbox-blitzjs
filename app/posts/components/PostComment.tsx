@@ -1,4 +1,4 @@
-import { PostComment, User, Profile } from 'db'
+import { PostComment, User } from 'db'
 import { useMutation, useQuery } from '@blitzjs/core'
 import getPostComments from 'app/postComments/queries/getPostComments'
 import createPostComment from 'app/postComments/mutations/createPostComment'
@@ -14,7 +14,7 @@ type PostCommentsProps = {
 }
 
 type CommentProps = {
-  comment: PostComment & { user: User & { profile?: Profile } }
+  comment: PostComment & { user: User }
   onClickDelete: (id: number) => void
   userId: number
 }
@@ -25,7 +25,7 @@ const Comment = (props: CommentProps) => {
       <p>{props.comment.content}</p>
       <div className="flex items-center gap-2 text-xs mt-3">
         <div>{format(props.comment.createdAt, 'MMM dd, hh:mm')}</div>
-        <div className="font-bold">by {props.comment.user?.profile?.name}</div>
+        <div className="font-bold">by {props.comment.user?.name}</div>
       </div>
       {props.comment.userId === props.userId && (
         <button className="absolute right-0 bottom-0 mr-4 mb-4" onClick={() => props.onClickDelete(props.comment.id)}>

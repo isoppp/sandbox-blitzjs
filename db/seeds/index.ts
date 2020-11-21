@@ -22,6 +22,8 @@ const seed = async () => {
     data: {
       email: 'admin@example.com',
       hashedPassword: await hashPassword('example'),
+      name: 'admin',
+      imageUrl: 'http://placekitten.com/350/350',
       roles: {
         connect: [
           {
@@ -39,18 +41,14 @@ const seed = async () => {
     data: {
       email: 'user@example.com',
       hashedPassword: await hashPassword('example'),
+      name: 'user',
+      imageUrl: 'http://placekitten.com/350/350',
       roles: {
         connect: [
           {
             name: USER_ROLE.User,
           },
         ],
-      },
-      profile: {
-        create: {
-          name: 'user',
-          imageUrl: 'http://placekitten.com/350/350',
-        },
       },
     },
   })
@@ -59,6 +57,8 @@ const seed = async () => {
     data: {
       email: 'user2@example.com',
       hashedPassword: await hashPassword('example'),
+      name: 'user',
+      imageUrl: 'http://placekitten.com/350/350',
       roles: {
         connect: [
           {

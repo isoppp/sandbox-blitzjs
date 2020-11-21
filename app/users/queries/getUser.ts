@@ -14,12 +14,8 @@ export default async function getUser({ where }: GetUserInput, ctx: Ctx) {
       email: true,
       createdAt: true,
       updatedAt: true,
-      profile: {
-        select: {
-          name: true,
-          imageUrl: true,
-        },
-      },
+      name: true,
+      imageUrl: true,
       roles: {
         select: {
           name: true,

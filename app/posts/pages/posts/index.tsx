@@ -33,7 +33,7 @@ export const PostsList = () => {
                 <a>
                   <div className="font-medium mb-3">{post.title}</div>
                   <div className="text-xs">
-                    created: {formatDistance(new Date(), post.createdAt)} by {post.author?.profile?.name}
+                    created: {formatDistance(new Date(), post.createdAt)} by {post.author?.name}
                   </div>
                   <div className="text-sm mt-1">{post.content}</div>
                 </a>

@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
-import { useCurrentUser, useCurrentUserFromSession } from 'app/hooks/useCurrentUser'
+import { useCurrentUser } from 'app/hooks/useCurrentUser'
 import { Link, PromiseReturnType, useMutation } from 'blitz'
-import logout from 'app/auth/mutations/logout'
 import getCurrentUser from '../users/queries/getCurrentUser'
 
 export const getServerSideProps = async ({ req, res }) => {
@@ -16,10 +15,10 @@ const UserProfile = ({ user }: { user: User }) => {
     <Link href={`/settings/account`}>
       <a className="block transition duration-150 hover:bg-gray-200 py-2 px-3">
         <div className="flex items-center gap-2">
-          <div>Hi {user?.profile?.name}!</div>
+          <div>Hi {user?.name}!</div>
           <div>
             <img
-              src={user?.profile?.imageUrl ?? '/images/icon-empty-profile'}
+              src={user?.imageUrl ?? '/images/icon-empty-profile'}
               className="w-10 h-10 object-cover rounded-full"
               alt=""
             />

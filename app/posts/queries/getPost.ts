@@ -11,11 +11,7 @@ export default async function getPost({ where }: GetPostInput, ctx: Ctx) {
       author: {
         select: {
           id: true,
-          profile: {
-            select: {
-              name: true,
-            },
-          },
+          name: true,
         },
       },
       likes: {

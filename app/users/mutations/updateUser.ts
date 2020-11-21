@@ -21,12 +21,8 @@ export default async function updateUser({ where, data }: UpdateUserInput & { da
     select: {
       displayId: true,
       email: true,
-      profile: {
-        select: {
-          name: true,
-          imageUrl: true,
-        },
-      },
+      name: true,
+      imageUrl: true,
     },
   })
 

@@ -38,11 +38,19 @@ const ProfileForm = (props: ProfileFormProps) => {
   return (
     <form className="block py-4" onSubmit={handleSubmit(props.onSubmit)}>
       <FormItem title="Email:" className="mt-4 first:mt-0">
-        <InputText type="text" name="name" placeholder="" ref={register} defaultValue={props.initialValues?.name} />
+        <InputText
+          type="text"
+          name="name"
+          placeholder="xxx@example.com"
+          ref={register}
+          defaultValue={props.initialValues?.email}
+        />
       </FormItem>
       <DragDropUploader uploadAsTemp={true}>
         {({ uploadedImageUrls }) =>
-          uploadedImageUrls.map((url) => <input type="hidden" name="imageUrl" value={url} key={url} />)
+          uploadedImageUrls.map((url, i) => (
+            <input key={url} type="hidden" name={`imageUrl`} value={url} ref={register} />
+          ))
         }
       </DragDropUploader>
 

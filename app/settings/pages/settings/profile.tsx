@@ -7,7 +7,7 @@ import { validateAuthorizationConditions } from 'utils/authorization'
 import getUser from 'app/users/queries/getUser'
 import logout from 'app/auth/mutations/logout'
 import ProfileForm, { ProfileFormValues } from 'app/settings/components/ProfileForm'
-import updateProfile from 'app/profiles/mutations/updateProfile'
+import updateUser from 'app/users/mutations/updateUser'
 
 export async function getServerSideProps(context) {
   const session = await getSessionContext(context.req, context.res)
@@ -25,10 +25,11 @@ export async function getServerSideProps(context) {
 const SettingsProfilePage: BlitzPage<{ user: string }> = (props) => {
   const router = useRouter()
   const user = useMemo(() => superjson.parse(props.user), [props.user]) as PromiseReturnType<typeof getUser>
-  const [updateUserMutation] = useMutation(updateProfile)
+  const [updateUserMutation] = useMutation(updateUser)
   const [logoutMutation] = useMutation(logout)
   const onSubmit = useCallback(
     async (data: ProfileFormValues) => {
+      console.log(data)
       try {
         const updated = await updateUserMutation({
           where: {
