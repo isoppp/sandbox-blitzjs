@@ -30,7 +30,7 @@ const UserProfile = ({ user }: { user: User }) => {
 }
 
 const HeaderAuthNav = () => {
-  const { user } = useCurrentUser()
+  const user = useCurrentUser()
 
   if (user?.id) {
     return (

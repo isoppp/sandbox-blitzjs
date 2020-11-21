@@ -6,7 +6,7 @@ export const useCurrentUser = () => {
   // load since we can skip the getCurrentUser() request.
   const session = useSession()
   const [user] = useQuery(getCurrentUser, null, { enabled: !!session.userId })
-  return { user: session.userId ? user : null }
+  return session.userId ? user : null
 }
 
 export const useCurrentUserFromSession = () => {
