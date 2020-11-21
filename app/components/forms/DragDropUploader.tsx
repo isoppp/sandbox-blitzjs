@@ -10,6 +10,7 @@ import { isProduction } from 'constants/nodenv'
 
 import '@uppy/core/dist/style.css'
 import '@uppy/drag-drop/dist/style.css'
+import { UploadedImagePreview } from 'app/components/forms/UploadedImagePreview'
 
 interface Props {
   uploadAsTemp?: boolean
@@ -101,19 +102,11 @@ const DragDropUploader = ({ uploadAsTemp = true, children }: Props) => {
         }}
       />
       {(uploadedImages ?? []).map((uploadedImage) => (
-        <div className="relative" key={uploadedImage.id}>
-          <img src={uploadedImage?.uploadURL} alt="" />
-          <button
-            className={classNames([
-              'absolute right-0 top-0 mt-4 mr-4',
-              'p-1 text-2xl shadow-md bg-gray-100 rounded-full',
-              'cursor-pointer focus:outline-none',
-            ])}
-            onClick={() => deleteUploadedFile(uploadedImage)}
-          >
-            <IoMdClose />
-          </button>
-        </div>
+        <UploadedImagePreview
+          url={uploadedImage.uploadURL}
+          onDeleteFile={() => deleteUploadedFile(uploadedImage)}
+          key={uploadedImage.id}
+        />
       ))}
 
       {children && children({ uploadedImageUrls: (uploadedImages ?? []).map((img) => img.uploadURL) })}

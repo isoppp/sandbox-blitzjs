@@ -1,13 +1,15 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import SettingsLayout from 'app/layouts/SettingsLayout'
-import { BlitzPage, invokeWithMiddleware, PromiseReturnType, useMutation, useRouter } from 'blitz'
+import { BlitzPage, invokeWithMiddleware, PromiseReturnType } from 'blitz'
 import superjson from 'superjson'
 import { getSessionContext } from '@blitzjs/server'
 import { validateAuthorizationConditions } from 'utils/authorization'
 import getUser from 'app/users/queries/getUser'
-import AccountForm, { AccountFormValues } from 'app/settings/components/AccountForm'
-import updateUser from 'app/users/mutations/updateUser'
-import logout from 'app/auth/mutations/logout'
+import { useAccount } from 'app/settings/hooks/useAccount'
+import UserImageForm from 'app/settings/components/UserImageForm'
+import UserPasswordForm from 'app/settings/components/UserPasswordForm'
+import UserProfileForm from 'app/settings/components/UserProfileForm'
+import { UploadedImagePreview } from 'app/components/forms/UploadedImagePreview'
 
 export async function getServerSideProps(context) {
   const session = await getSessionContext(context.req, context.res)
@@ -23,36 +25,41 @@ export async function getServerSideProps(context) {
 }
 
 const SettingsAccountPage: BlitzPage<{ user: string }> = (props) => {
-  const router = useRouter()
   const user = useMemo(() => superjson.parse(props.user), [props.user]) as PromiseReturnType<typeof getUser>
-  const [updateUserMutation] = useMutation(updateUser)
-  const [logoutMutation] = useMutation(logout)
-  const onSubmit = useCallback(
-    async (data: AccountFormValues) => {
-      const { password_confirmation, ...submitData } = data
-      try {
-        const updated = await updateUserMutation({
-          where: {
-            id: user.id,
-          },
-          data: {
-            ...submitData,
-          },
-        })
-        alert('Success!' + JSON.stringify(updated))
-        router.push(`/settings/account`)
-      } catch (e) {
-        console.log(e)
-      }
-    },
-    [router, updateUserMutation, user.id],
-  )
+  const {
+    logoutMutation,
+    onSubmitUserPassword,
+    onSubmitUserProfile,
+    onSubmitUserImage,
+    onDeleteUserImage,
+  } = useAccount(user)
 
   return (
     <div>
-      <div className="my-8 first:mt-0">
-        <AccountForm onSubmit={onSubmit} initialValues={user} />
-      </div>
+      <section className="mt-10 first:mt-0 pt-10 first:pt-0">
+        <h2 className="mb-8 font-bold text-2xl border-b-4">Avatar</h2>
+        <div className="first:mt-0">
+          {user.imageUrl ? (
+            <UploadedImagePreview url={user.imageUrl} onDeleteFile={onDeleteUserImage} />
+          ) : (
+            <UserImageForm onSubmit={onSubmitUserImage} initialValues={user} />
+          )}
+        </div>
+      </section>
+
+      <section className="mt-10 first:mt-0 pt-10 first:pt-0">
+        <h2 className="mb-8 font-bold text-2xl border-b-4">Profile</h2>
+        <div className="first:mt-0">
+          <UserProfileForm onSubmit={onSubmitUserProfile} initialValues={user} />
+        </div>
+      </section>
+
+      <section className="mt-10 first:mt-0 pt-10 first:pt-0">
+        <h2 className="mb-8 font-bold text-2xl border-b-4">Password</h2>
+        <div className="first:mt-0">
+          <UserPasswordForm onSubmit={onSubmitUserPassword} initialValues={user} />
+        </div>
+      </section>
 
       <div className="mt-6 flex justify-center">
         <button

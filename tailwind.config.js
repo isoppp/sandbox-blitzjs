@@ -14,7 +14,10 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    margin: ['responsive', 'first'],
+    padding: ['responsive', 'first'],
+  },
   plugins: [
     require('tailwind-css-variables')(
       {

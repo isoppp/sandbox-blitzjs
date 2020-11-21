@@ -19,10 +19,6 @@ const Layout = ({ title, children, containerClassName = 'container mx-auto py-10
       label: 'Account',
       href: '/settings/account',
     },
-    {
-      label: 'Profile',
-      href: '/settings/profile',
-    },
   ]
   return (
     <>
