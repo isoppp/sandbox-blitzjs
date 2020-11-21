@@ -1,18 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { constants } from 'http2'
-
-const aws = require('aws-sdk')
-const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
-const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
-const AWS_S3_BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME
-
-aws.config.update({
-  accessKeyId: AWS_ACCESS_KEY_ID,
-  secretAccessKey: AWS_SECRET_ACCESS_KEY,
-})
+import { AWS_S3_BUCKET_NAME, s3 } from 'constants/aws'
 
 function getSignedS3UrlForPut(file: { filename: string; contentType: string }): Promise<string> {
-  const s3 = new aws.S3()
   const params = {
     Bucket: AWS_S3_BUCKET_NAME,
     Key: file.filename,

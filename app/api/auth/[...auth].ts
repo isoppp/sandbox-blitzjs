@@ -1,10 +1,7 @@
 import { passportAuth } from 'blitz'
 import db from 'db'
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
-
-function assert(condition: any, message: string): asserts condition {
-  if (!condition) throw new Error(message)
-}
+import { assert } from 'utils/assert'
 
 assert(process.env.GOOGLE_CLIENT, 'You must provide the GOOGLE_CLIENT env variable')
 assert(process.env.GOOGLE_SECRET, 'You must provide the GOOGLE_SECRET env variable')

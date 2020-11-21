@@ -4,13 +4,12 @@ import AwsS3 from '@uppy/aws-s3'
 import DragDrop from '@uppy/react/lib/DragDrop'
 import ms from 'ms'
 import cuid from 'cuid'
-import { IoMdClose } from 'react-icons/io'
-import { classNames } from 'utils/classNames'
 import { isProduction } from 'constants/nodenv'
 
 import '@uppy/core/dist/style.css'
 import '@uppy/drag-drop/dist/style.css'
 import { UploadedImagePreview } from 'app/components/forms/UploadedImagePreview'
+import { TEMP_FOLDER_NAME } from 'constants/aws-browser'
 
 interface Props {
   uploadAsTemp?: boolean
@@ -36,7 +35,7 @@ uppy.use(AwsS3, {
   timeout: ms('1 minute'),
   getUploadParameters(file: File) {
     const { uploadAsTemp } = file.meta
-    const filepath = `${uploadAsTemp ? 'tmp/' : ''}${cuid()}-${file.name}`
+    const filepath = `${uploadAsTemp ? `${TEMP_FOLDER_NAME}/` : ''}${cuid()}-${file.name}`
     return fetch('/api/upload/s3-sign', {
       method: 'post',
       // Send and receive JSON.
@@ -80,6 +79,8 @@ const DragDropUploader = ({ uploadAsTemp = true, children }: Props) => {
     },
     [uploadedImages],
   )
+
+  uppy.reset()
 
   uppy.setMeta({
     uploadAsTemp,
