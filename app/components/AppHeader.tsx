@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { useCurrentUser } from 'app/hooks/useCurrentUser'
 import { Link, PromiseReturnType } from 'blitz'
 import getCurrentUser from '../users/queries/getCurrentUser'
+import { getImageUrl } from 'utils/s3'
 
 export const getServerSideProps = async ({ req, res }) => {
   // const session = await getSessionContext(req, res)
@@ -17,11 +18,7 @@ const UserProfile = ({ user }: { user: User }) => {
         <div className="flex items-center gap-2">
           <div>Hi {user?.name}!</div>
           <div>
-            <img
-              src={user?.imageUrl ?? '/images/icon-empty-profile'}
-              className="w-10 h-10 object-cover rounded-full"
-              alt=""
-            />
+            <img src={getImageUrl(user?.imageUrl)} className="w-10 h-10 object-cover rounded-full" alt="" />
           </div>
         </div>
       </a>

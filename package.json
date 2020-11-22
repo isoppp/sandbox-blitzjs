@@ -46,6 +46,7 @@
     "date-fns": "2.16.1",
     "passport-google-oauth": "2.0.0",
     "react": "0.0.0-experimental-4ead6b530",
+    "react-cropper": "2.1.4",
     "react-dom": "0.0.0-experimental-4ead6b530",
     "react-error-boundary": "3.0.2",
     "react-hook-form": "6.11.0",

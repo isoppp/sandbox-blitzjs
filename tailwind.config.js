@@ -7,10 +7,13 @@ module.exports = {
         '1/5': '20%',
       },
       minHeight: {
-        ...[14].reduce((acc, cur) => {
+        ...[14, 64].reduce((acc, cur) => {
           acc[cur] = `${cur * 0.25}rem`
           return acc
         }, {}),
+      },
+      opacity: {
+        90: '0.9',
       },
     },
   },
@@ -23,7 +26,7 @@ module.exports = {
       {
         colors: 'color',
         screens: '', // '',
-        fontFamily: '', // 'font',
+        fontFamily: 'font', // 'font',
         fontSize: false, // 'text',
         fontWeight: false, // 'font',
         lineHeight: false, // 'leading',
