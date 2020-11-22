@@ -1,5 +1,8 @@
+import { useCurrentUser } from 'app/hooks/useCurrentUser'
+
 jest.mock('app/hooks/useCurrentUser')
-// const mockUseCurrentUser = useCurrentUser as jest.MockedFunction<typeof useCurrentUser>
+// eslint-disable-next-line unused-imports/no-unused-vars-ts
+const mockUseCurrentUser = useCurrentUser as jest.MockedFunction<typeof useCurrentUser>
 
 test.skip('renders blitz documentation link', () => {
   // This is an example of how to ensure a specific item is in the document
