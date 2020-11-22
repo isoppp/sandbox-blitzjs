@@ -45,6 +45,6 @@ export const authenticateUser = async (email: string, password: string) => {
       throw new AuthenticationError()
   }
 
-  const { hashedPassword, ...rest } = user
+  const { hashedPassword: _, ...rest } = user
   return rest
 }

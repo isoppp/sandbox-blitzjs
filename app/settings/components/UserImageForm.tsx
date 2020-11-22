@@ -18,9 +18,7 @@ const UserImageForm = (props: UserImageFormProps) => {
     <form className="block" onSubmit={handleSubmit(props.onSubmit)}>
       <DragDropUploader uploadAsTemp={true}>
         {({ uploadedImageUrls }) =>
-          uploadedImageUrls.map((url, i) => (
-            <input key={url} type="hidden" name={`imageUrl`} value={url} ref={register} />
-          ))
+          uploadedImageUrls.map((url) => <input key={url} type="hidden" name={`imageUrl`} value={url} ref={register} />)
         }
       </DragDropUploader>
 

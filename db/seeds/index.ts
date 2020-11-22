@@ -109,7 +109,7 @@ const seed = async () => {
     },
   })
 
-  const commentReply = await db.postComment.create({
+  await db.postComment.create({
     data: {
       content: 'Thanks!',
       post: {
@@ -130,7 +130,7 @@ const seed = async () => {
     },
   })
 
-  const like = await db.likePost.create({
+  await db.likePost.create({
     data: {
       post: {
         connect: {

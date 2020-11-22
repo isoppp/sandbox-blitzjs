@@ -1,4 +1,4 @@
-import { AuthenticationError, AuthorizationError, SessionContext } from 'blitz'
+import { AuthorizationError } from 'blitz'
 import { Nullable } from 'Union/Nullable'
 import { UserRole } from './userRole'
 
