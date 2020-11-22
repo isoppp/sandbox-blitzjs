@@ -2,33 +2,24 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import InputText from 'app/components/forms/InputText'
-
-export type PostFormValues = {
-  title: string
-  content: string
-  slug: string
-}
+import { PostFormInput, PostFormInputType } from 'app/posts/validations'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Textarea from 'app/components/forms/Textarea'
 
 type PostFormProps = {
-  initialValues?: PostFormValues & any
-  onSubmit: (data: PostFormValues) => void
+  initialValues?: PostFormInputType & any
+  onSubmit: (data: PostFormInputType) => void
 }
 
 const PostForm = (props: PostFormProps) => {
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit, watch, errors } = useForm({
+    resolver: zodResolver(PostFormInput),
+  })
 
+  console.log({ errors, slug: errors.slug })
   return (
     <form className="block py-4" onSubmit={handleSubmit(props.onSubmit)}>
-      <FormItem title="Slug:" className="mt-4 first:mt-0">
-        <InputText
-          type="text"
-          name="slug"
-          placeholder="my-title"
-          ref={register}
-          defaultValue={props.initialValues?.slug}
-        />
-      </FormItem>
-      <FormItem title="Title:" className="mt-4 first:mt-0">
+      <FormItem title="Title:" className="mt-4 first:mt-0" error={errors?.title} required>
         <InputText
           type="text"
           name="title"
@@ -37,13 +28,22 @@ const PostForm = (props: PostFormProps) => {
           defaultValue={props.initialValues?.title}
         />
       </FormItem>
-      <FormItem title="Content:" className="mt-4 first:mt-0">
+      <FormItem title="Slug:" className="mt-4 first:mt-0" error={errors.slug}>
         <InputText
           type="text"
+          name="slug"
+          placeholder="my-title"
+          ref={register}
+          defaultValue={props.initialValues?.slug ?? null}
+        />
+      </FormItem>
+      <FormItem title="Content:" className="mt-4 first:mt-0" error={errors.content} required>
+        <Textarea
           name="content"
           placeholder="My First Post's Content"
           ref={register}
           defaultValue={props.initialValues?.content}
+          minRows={4}
         />
       </FormItem>
 

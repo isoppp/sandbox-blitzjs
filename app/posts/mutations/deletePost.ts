@@ -3,9 +3,8 @@ import db, { PostDeleteArgs } from 'db'
 import { shouldBeSame, shouldHaveRole, validateAuthorizationConditions } from '../../../utils/authorization'
 import { USER_ROLE } from '../../../utils/userRole'
 
-type DeletePostInput = Pick<PostDeleteArgs, 'where'>
-
-export default async function deletePost({ where }: DeletePostInput, ctx: Ctx) {
+export default async function deletePost({ where }: Pick<PostDeleteArgs, 'where'>, ctx: Ctx) {
+  ctx.session.authorize()
   const resource = await db.post.findOne({ where, select: { authorId: true } })
   validateAuthorizationConditions([
     shouldBeSame(resource?.authorId, ctx?.session?.userId),

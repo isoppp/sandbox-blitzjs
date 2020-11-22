@@ -18,7 +18,7 @@ const UserProfile = ({ user }: { user: User }) => {
         <div className="flex items-center gap-2">
           <div>Hi {user?.name}!</div>
           <div>
-            <img src={getImageUrl(user?.imageUrl)} className="w-10 h-10 object-cover rounded-full shadow-md" alt="" />
+            <img src={getImageUrl(user?.imageUrl)} className="w-10 h-10 object-cover rounded-full shadow-sm" alt="" />
           </div>
         </div>
       </a>
