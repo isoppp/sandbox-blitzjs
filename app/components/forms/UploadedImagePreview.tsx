@@ -1,7 +1,7 @@
 import { classNames } from 'utils/classNames'
 import { IoMdClose } from 'react-icons/io'
 import React from 'react'
-import { AWS_S3_PATH } from 'constants/aws-public'
+import { PUBLIC_IMAGE_URL } from 'constants/aws-public'
 
 interface Props {
   url: string
@@ -9,7 +9,7 @@ interface Props {
 }
 export const UploadedImagePreview = (props: Props) => {
   const isFullPath = props.url.startsWith('http')
-  const imgPath = isFullPath ? props.url : `${AWS_S3_PATH}/${props.url}`
+  const imgPath = isFullPath ? props.url : `${PUBLIC_IMAGE_URL}/${props.url}`
   return (
     <div className="flex justify-center">
       <div className="relative inline-flex mx-auto">
