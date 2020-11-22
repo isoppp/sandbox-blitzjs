@@ -1,7 +1,10 @@
 import { Ctx } from 'blitz'
 import db, { FindManyPostCommentArgs } from 'db'
+import { PromiseReturnType } from '@blitzjs/core'
 
 type GetPostCommentsInput = Pick<FindManyPostCommentArgs, 'where' | 'orderBy' | 'skip' | 'take'>
+
+export type PostCommentsReturnValues = PromiseReturnType<typeof getPostComments>['postComments']
 
 export default async function getPostComments({ where, orderBy, skip = 0, take }: GetPostCommentsInput, ctx: Ctx) {
   // ctx.session.authorize()

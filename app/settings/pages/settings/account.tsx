@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import SettingsLayout from 'app/layouts/SettingsLayout'
-import { BlitzPage, invokeWithMiddleware, PromiseReturnType } from 'blitz'
+import { BlitzPage, GetServerSideProps, invokeWithMiddleware, PromiseReturnType } from 'blitz'
 import superjson from 'superjson'
 import { getSessionContext } from '@blitzjs/server'
 import { validateAuthorizationConditions } from 'utils/authorization'
@@ -11,7 +11,7 @@ import UserPasswordForm from 'app/settings/components/UserPasswordForm'
 import UserProfileForm from 'app/settings/components/UserProfileForm'
 import { UploadedImagePreview } from 'app/components/forms/UploadedImagePreview'
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSessionContext(context.req, context.res)
   validateAuthorizationConditions([!!session.userId])
   const user = await invokeWithMiddleware(getUser, { where: { id: Number(session.userId) } }, context)

@@ -19,7 +19,7 @@ const ImageCropper: FC<Props> = (props) => {
     const imageElement: any = cropperRef?.current
     const cropper: any = imageElement?.cropper
     cropper.getCroppedCanvas({ minWidth: 512, maxHeight: 512 }).toBlob(
-      (blob) => {
+      (blob: Blob) => {
         props.onCroppedImage({
           ...props.file,
           data: blob,

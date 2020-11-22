@@ -1,7 +1,7 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import Uppy, { UploadedUppyFile, UploadResult, UppyFile } from '@uppy/core'
 import AwsS3 from '@uppy/aws-s3'
-import DragDrop from '@uppy/react/lib/DragDrop'
+import { DragDrop } from '@uppy/react'
 import ms from 'ms'
 import cuid from 'cuid'
 import { isProduction } from 'constants/nodenv'

@@ -1,6 +1,5 @@
-import { PostComment, User } from 'db'
 import { useMutation, useQuery } from '@blitzjs/core'
-import getPostComments from 'app/postComments/queries/getPostComments'
+import getPostComments, { PostCommentsReturnValues } from 'app/postComments/queries/getPostComments'
 import createPostComment from 'app/postComments/mutations/createPostComment'
 import { Fragment, useCallback, useMemo } from 'react'
 import PostCommentForm, { PostCommentFormValues } from './PostCommentForm'
@@ -8,13 +7,14 @@ import { format } from 'date-fns'
 import { IoMdTrash } from 'react-icons/io'
 import deletePostComment from 'app/postComments/mutations/deletePostComment'
 
+type PostComment = PostCommentsReturnValues[0]
 type PostCommentsProps = {
   postId: number
   userId: number
 }
 
 type CommentProps = {
-  comment: PostComment & { user: User }
+  comment: PostComment
   onClickDelete: (id: number) => void
   userId: number
 }
@@ -41,11 +41,14 @@ export default function PostComments(props: PostCommentsProps) {
     where: { postId: props.postId },
     orderBy: { id: 'asc' },
   })
-  const { parentComments, childComments } = useMemo(() => {
-    const parentComments = postComments.filter((comment) => !comment.parentId)
-    const childCandidates = postComments.filter((comment) => !!comment.parentId)
-    const childComments = parentComments.reduce((acc, cur) => {
-      acc[cur.id.toString()] = childCandidates.filter((candidate) => candidate.parentId === cur.id)
+  const { parentComments, childComments } = useMemo<{
+    parentComments: PostComment[]
+    childComments: Record<string, PostComment[]>
+  }>(() => {
+    const parentComments: PostComment[] = postComments.filter((comment: PostComment) => !comment.parentId)
+    const childCandidates: PostComment[] = postComments.filter((comment: PostComment) => !!comment.parentId)
+    const childComments = parentComments.reduce((acc: Record<string, PostComment[]>, cur: PostComment) => {
+      acc[cur.id.toString()] = childCandidates.filter((candidate: PostComment) => candidate.parentId === cur.id)
       return acc
     }, {})
     return {
@@ -112,7 +115,7 @@ export default function PostComments(props: PostCommentsProps) {
                 const children = childComments[comment.id]
                 return (
                   <>
-                    {children.map((childComment) => (
+                    {children.map((childComment: PostComment) => (
                       <Fragment key={childComment.id}>
                         <div className="mt-2 first:mt-0">
                           <Comment comment={childComment} onClickDelete={onClickDelete} userId={props.userId} />

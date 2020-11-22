@@ -1,6 +1,5 @@
 import aws, { S3 } from 'aws-sdk'
 import { AWSError } from 'aws-sdk/lib/error'
-import cuid from 'cuid'
 import { assert } from 'utils/assert'
 
 assert(process.env.AWS_ACCESS_KEY_ID, 'You must provide the AWS_ACCESS_KEY_ID env variable')
@@ -42,10 +41,4 @@ export const deleteS3Object = (
       }
     })
   })
-}
-
-export const S3KeyGen = (config: { model: string; userId: string; sourceFileName }) => {
-  const separatedName = config.sourceFileName.split('.')
-  const ext = separatedName[separatedName.length - 1]
-  return `${config.model}/${config.userId}/${cuid()}.${ext}`
 }

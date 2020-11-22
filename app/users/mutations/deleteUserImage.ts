@@ -3,7 +3,7 @@ import db from 'db'
 import { deleteS3Object } from 'constants/aws'
 import { AWS_S3_BUCKET_NAME } from 'constants/aws-public'
 
-export default async function deleteUserImage(_, ctx: Ctx) {
+export default async function deleteUserImage(_: any, ctx: Ctx) {
   ctx.session.authorize()
 
   const currentUser = await await db.user.findOne({ where: { id: ctx.session.userId }, select: { imageUrl: true } })

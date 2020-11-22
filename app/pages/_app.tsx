@@ -2,7 +2,7 @@ import { AppProps, ErrorComponent, useRouter } from 'blitz'
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
 import { queryCache } from 'react-query'
 import LoginForm from 'app/auth/components/LoginForm'
-import { ReactQueryDevtools } from 'react-query-devtools'
+// import { ReactQueryDevtools } from 'react-query-devtools'
 
 import 'app/styles/index.css'
 
@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
       }}
     >
       {getLayout(<Component {...pageProps} />)}
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/*<ReactQueryDevtools initialIsOpen={false} />*/}
     </ErrorBoundary>
   )
 }

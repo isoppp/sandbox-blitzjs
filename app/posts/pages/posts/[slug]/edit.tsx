@@ -1,17 +1,18 @@
 import React, { useCallback, useMemo } from 'react'
 import Layout from 'app/layouts/Layout'
-import { BlitzPage, invokeWithMiddleware, PromiseReturnType, useMutation, useRouter } from 'blitz'
+import { BlitzPage, GetServerSideProps, invokeWithMiddleware, PromiseReturnType, useMutation, useRouter } from 'blitz'
 import getPost from 'app/posts/queries/getPost'
 import updatePost from 'app/posts/mutations/updatePost'
-import PostForm, { PostFormValues } from 'app/posts/components/PostForm'
+import PostForm from 'app/posts/components/PostForm'
 import superjson from 'superjson'
 import { Post } from 'db'
 import { getSessionContext } from '@blitzjs/server'
 import { shouldBeSame, shouldHaveRole, validateAuthorizationConditions } from '../../../../../utils/authorization'
 import { USER_ROLE } from '../../../../../utils/userRole'
+import { PostFormInputType } from 'app/posts/validations'
 
-export async function getServerSideProps(context) {
-  const post = await invokeWithMiddleware(getPost, { where: { slug: context.params.slug } }, context)
+export const getServerSideProps: GetServerSideProps<{ [key: string]: any }, { slug: string }> = async (context) => {
+  const post = await invokeWithMiddleware(getPost, { where: { slug: context?.params?.slug } }, context)
   const dataString = superjson.stringify(post)
   const session = await getSessionContext(context.req, context.res)
   validateAuthorizationConditions([
@@ -31,7 +32,7 @@ export const EditPost = ({ post }: { post: Post }) => {
   const router = useRouter()
   const [updatePostMutation] = useMutation(updatePost)
   const onSubmit = useCallback(
-    async (data: PostFormValues) => {
+    async (data: PostFormInputType) => {
       try {
         const updated = await updatePostMutation({
           where: { id: post.id },

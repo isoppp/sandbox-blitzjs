@@ -1,7 +1,7 @@
 import * as React from 'react'
-import classNames from 'classnames'
 import { createPortal } from 'react-dom'
 import { IoMdClose } from 'react-icons/io'
+import { classNames } from 'utils/classNames'
 
 export interface Props {
   isOpen: boolean

@@ -4,11 +4,6 @@ import { Link, PromiseReturnType } from 'blitz'
 import getCurrentUser from '../users/queries/getCurrentUser'
 import { getImageUrl } from 'utils/s3'
 
-export const getServerSideProps = async ({ req, res }) => {
-  // const session = await getSessionContext(req, res)
-  return { props: {} }
-}
-
 type User = PromiseReturnType<typeof getCurrentUser>
 
 const UserProfile = ({ user }: { user: User }) => {

@@ -27,7 +27,6 @@ const PostCommentForm = (props: PostFormProps) => {
       <input type="hidden" name={'parentId'} defaultValue={props.initialValues.parentId ?? ''} ref={register} />
       <FormItem title={''} className="mt-4 first:mt-0">
         <Textarea
-          type="text"
           name="content"
           placeholder="Enter a comment here"
           ref={register}

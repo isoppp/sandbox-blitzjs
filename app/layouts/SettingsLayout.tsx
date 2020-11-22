@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { Head, Link, useRouter } from 'blitz'
 import AppHeader from '../components/AppHeader'
-import classNames from 'classnames'
+import { classNames } from 'utils/classNames'
 
 type LayoutProps = {
   title?: string
