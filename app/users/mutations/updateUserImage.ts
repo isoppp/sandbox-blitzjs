@@ -1,6 +1,7 @@
 import { Ctx } from 'blitz'
 import db, { UserUpdateInput, UserUpdateArgs } from 'db'
-import { AWS_S3_BUCKET_NAME, copyS3Object, S3KeyGen } from 'constants/aws'
+import { copyS3Object, S3KeyGen } from 'constants/aws'
+import { AWS_S3_BUCKET_NAME, AWS_S3_PATH } from 'constants/aws-public'
 import cuid from 'cuid'
 import path from 'path'
 
@@ -12,13 +13,14 @@ export default async function updateUserImage({ where, data }: UpdateImageInput,
     throw new Error()
   }
 
-  const resourcePath = data.imageUrl.split('amazonaws.com')[1]
+  const resourcePath = data.imageUrl.replace(AWS_S3_PATH, '')
   const key = `user/${ctx.session.userId}/${cuid()}${path.extname(data.imageUrl)}`
   const params = {
+    CopySource: `/${AWS_S3_BUCKET_NAME}${resourcePath}`, // /BUCKET_NAME/PATH
     Bucket: AWS_S3_BUCKET_NAME,
-    CopySource: `/${AWS_S3_BUCKET_NAME}${resourcePath}`,
-    Key: key,
+    Key: key, // PATH
   }
+
   const res = await copyS3Object(params)
 
   if (res?.err) {
@@ -29,7 +31,7 @@ export default async function updateUserImage({ where, data }: UpdateImageInput,
     where,
     data: {
       ...data,
-      imageUrl: data.imageUrl.replace(resourcePath, `/${key}`),
+      imageUrl: key,
     },
     select: {
       displayId: true,

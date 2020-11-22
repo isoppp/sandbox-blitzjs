@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { AWS_S3_BUCKET_NAME, s3 } from 'constants/aws'
+import { s3 } from 'constants/aws'
+import { AWS_S3_BUCKET_NAME } from 'constants/aws-public'
 
 function getSignedS3UrlForPut(file: { filename: string; contentType: string }): Promise<string> {
   const params = {

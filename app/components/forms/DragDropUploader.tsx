@@ -9,7 +9,7 @@ import { isProduction } from 'constants/nodenv'
 import '@uppy/core/dist/style.css'
 import '@uppy/drag-drop/dist/style.css'
 import { UploadedImagePreview } from 'app/components/forms/UploadedImagePreview'
-import { TEMP_FOLDER_NAME } from 'constants/aws-browser'
+import { AWS_S3_TEMP_DIR_NAME } from 'constants/aws-public'
 
 interface Props {
   uploadAsTemp?: boolean
@@ -35,7 +35,7 @@ uppy.use(AwsS3, {
   timeout: ms('1 minute'),
   getUploadParameters(file: File) {
     const { uploadAsTemp } = file.meta
-    const filepath = `${uploadAsTemp ? `${TEMP_FOLDER_NAME}/` : ''}${cuid()}-${file.name}`
+    const filepath = `${uploadAsTemp ? `${AWS_S3_TEMP_DIR_NAME}/` : ''}${cuid()}-${file.name}`
     return fetch('/api/upload/s3-sign', {
       method: 'post',
       // Send and receive JSON.

@@ -5,11 +5,9 @@ import { assert } from 'utils/assert'
 
 assert(process.env.AWS_ACCESS_KEY_ID, 'You must provide the AWS_ACCESS_KEY_ID env variable')
 assert(process.env.AWS_SECRET_ACCESS_KEY, 'You must provide the AWS_SECRET_ACCESS_KEY env variable')
-assert(process.env.AWS_S3_BUCKET_NAME, 'You must provide the AWS_S3_BUCKET_NAME env variable')
 
 export const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
 export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
-export const AWS_S3_BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME
 
 aws.config.update({
   accessKeyId: AWS_ACCESS_KEY_ID,
