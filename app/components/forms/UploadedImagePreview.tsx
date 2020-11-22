@@ -11,7 +11,11 @@ export const UploadedImagePreview = (props: Props) => {
   return (
     <div className="flex justify-center">
       <div className="relative inline-flex mx-auto">
-        <img src={getImageUrl(props.url)} alt="" className="block w-48 h-48 object-cover rounded-sm mx-auto" />
+        <img
+          src={getImageUrl(props.url)}
+          alt=""
+          className="block w-48 h-48 object-cover rounded-sm mx-auto shadow-md"
+        />
         <button
           className={classNames([
             'absolute right-0 top-0 mt-2 mr-2',

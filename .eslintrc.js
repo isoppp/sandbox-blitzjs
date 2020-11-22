@@ -2,8 +2,15 @@ module.exports = {
   env: {
     es2020: true,
   },
-  extends: ['react-app', 'plugin:jsx-a11y/recommended', 'plugin:react-hooks/recommended'],
-  plugins: ['jsx-a11y', 'unused-imports'],
+  extends: [
+    'react-app',
+    // 'plugin:jsx-a11y/recommended',
+    'plugin:react-hooks/recommended',
+  ],
+  plugins: [
+    // 'jsx-a11y',
+    'unused-imports',
+  ],
   rules: {
     'import/no-anonymous-default-export': 'error',
     'import/no-webpack-loader-syntax': 'off',

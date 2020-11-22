@@ -12,9 +12,11 @@ import Spinner from 'app/components/Spinner'
 
 import '@uppy/core/dist/style.css'
 import '@uppy/drag-drop/dist/style.css'
+import ModalLayout from 'app/components/layouts/ModalLayout'
 
 interface Props {
   uploadAsTemp?: boolean
+
   children(props: { uploadedImageUrl: string }): ReactNode
 }
 
@@ -68,6 +70,7 @@ uppy.use(AwsS3, {
 })
 
 const DragDropUploader = ({ uploadAsTemp = true, children }: Props) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [uploadedImage, setUploadedImage] = useState<UploadedFile | null>(null)
   const [addedFile, setAddedFile] = useState<AddedFile | null>(null)
@@ -89,12 +92,25 @@ const DragDropUploader = ({ uploadAsTemp = true, children }: Props) => {
     uppy.addFile(file)
     setAddedFile(null)
     setUploading(true)
-    await uppy.upload()
+    try {
+      await uppy.upload()
+      setIsModalOpen(false)
+    } catch (e) {
+      console.log(e)
+      uppy.reset()
+    }
   }, [])
 
   const onCancelCrop = useCallback(() => {
     setAddedFile(null)
     uppy.reset()
+  }, [])
+
+  const openModal = useCallback(() => {
+    uppy.reset()
+    setAddedFile(null)
+    setUploadedImage(null)
+    setIsModalOpen(true)
   }, [])
 
   useEffect(() => {
@@ -108,35 +124,51 @@ const DragDropUploader = ({ uploadAsTemp = true, children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (uploading) return <Spinner className="my-10" width={80} height={80} />
-
   return (
     <div className="max-w-screen-sm mx-auto">
-      {!addedFile && !uploadedImage && (
-        <DragDrop
-          uppy={uppy}
-          note="Images up to 512x512px"
-          locale={{
-            strings: {
-              // Text to show on the droppable area.
-              // `%{browse}` is replaced with a link that opens the system file selection dialog.
-              dropHereOr: 'Drop here or %{browse}',
-              // Used as the label for the link that opens the system file selection dialog.
-              browse: 'browse',
-            },
-          }}
-        />
-      )}
-      {!uploadedImage && addedFile && (
-        <ImageCropper key={addedFile.id} file={addedFile} onCroppedImage={onCroppedImage} onCancelCrop={onCancelCrop} />
-      )}
-      {uploadedImage && (
+      {uploadedImage ? (
         <UploadedImagePreview
           url={uploadedImage.uploadURL}
           onDeleteFile={() => deleteUploadedFile(uploadedImage)}
           key={uploadedImage.id}
         />
+      ) : (
+        <div className="mt-6 flex justify-center">
+          <button
+            className="border rounded-md py-2 px-4 focus:outline-none border-teal-600 text-teal-600 font-bold"
+            onClick={openModal}
+          >
+            Upload Image
+          </button>
+        </div>
       )}
+
+      <ModalLayout isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} title={'Upload Image'}>
+        {!addedFile && !uploadedImage && !uploading && (
+          <DragDrop
+            uppy={uppy}
+            note="Images up to 512x512px"
+            locale={{
+              strings: {
+                // Text to show on the droppable area.
+                // `%{browse}` is replaced with a link that opens the system file selection dialog.
+                dropHereOr: 'Drop here or %{browse}',
+                // Used as the label for the link that opens the system file selection dialog.
+                browse: 'browse',
+              },
+            }}
+          />
+        )}
+        {!uploadedImage && addedFile && (
+          <ImageCropper
+            key={addedFile.id}
+            file={addedFile}
+            onCroppedImage={onCroppedImage}
+            onCancelCrop={onCancelCrop}
+          />
+        )}
+        {uploading && <Spinner className="my-10" width={80} height={80} />}
+      </ModalLayout>
 
       {children && !!uploadedImage?.uploadURL && children({ uploadedImageUrl: uploadedImage?.uploadURL })}
 
