@@ -61,14 +61,17 @@ const SettingsAccountPage: BlitzPage<{ user: string }> = (props) => {
         </div>
       </section>
 
-      <div className="mt-6 flex justify-center">
-        <button
-          className="border rounded-md py-2 px-4 focus:outline-none font-bold text-gray-600"
-          onClick={logoutMutation}
-        >
-          Logout
-        </button>
-      </div>
+      <section className="mt-10 first:mt-0 pt-10 first:pt-0">
+        <h2 className="mb-8 font-bold text-2xl border-b-4">Logout</h2>
+        <div className="flex justify-center">
+          <button
+            className="border rounded-md py-2 px-4 text-sm focus:outline-none font-bold text-gray-600"
+            onClick={logoutMutation}
+          >
+            Logout
+          </button>
+        </div>
+      </section>
     </div>
   )
 }

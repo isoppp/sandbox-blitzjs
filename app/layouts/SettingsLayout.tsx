@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
-import { Head, Link, useMutation, useRouter } from 'blitz'
+import { Head, Link, useRouter } from 'blitz'
 import AppHeader from '../components/AppHeader'
 import classNames from 'classnames'
-import logout from 'app/auth/mutations/logout'
+
 type LayoutProps = {
   title?: string
   children: ReactNode
@@ -11,9 +11,7 @@ type LayoutProps = {
 
 const Layout = ({ title, children, containerClassName = 'container mx-auto py-10' }: LayoutProps) => {
   const router = useRouter()
-  const [logoutMutation] = useMutation(logout)
 
-  console.log({ router })
   const settingNavs = [
     {
       label: 'Account',

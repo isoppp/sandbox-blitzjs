@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { useCurrentUser } from 'app/hooks/useCurrentUser'
-import { Link, PromiseReturnType, useMutation } from 'blitz'
+import { Link, PromiseReturnType } from 'blitz'
 import getCurrentUser from '../users/queries/getCurrentUser'
 
 export const getServerSideProps = async ({ req, res }) => {

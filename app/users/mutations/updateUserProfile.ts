@@ -1,5 +1,5 @@
 import { Ctx } from 'blitz'
-import db, { UserUpdateInput, UserUpdateArgs } from 'db'
+import db, { UserUpdateArgs, UserUpdateInput } from 'db'
 
 type UpdateAccountInput = Pick<UserUpdateArgs, 'where'> & {
   data: Pick<UserUpdateInput, 'displayId' | 'email' | 'name'>

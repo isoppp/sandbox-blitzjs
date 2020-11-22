@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import Layout from 'app/layouts/Layout'
-import { Link, usePaginatedQuery, useRouter, BlitzPage } from 'blitz'
+import { BlitzPage, Link, usePaginatedQuery, useRouter } from 'blitz'
 import getPosts from 'app/posts/queries/getPosts'
 import { formatDistance } from 'date-fns'
 

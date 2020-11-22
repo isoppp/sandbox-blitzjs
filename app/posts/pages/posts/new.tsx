@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import Layout from 'app/layouts/Layout'
-import { Link, useRouter, useMutation, BlitzPage } from 'blitz'
+import { BlitzPage, useMutation, useRouter } from 'blitz'
 import createPost from 'app/posts/mutations/createPost'
 import PostForm, { PostFormValues } from 'app/posts/components/PostForm'
 import { useCurrentUserFromSession } from '../../../hooks/useCurrentUser'

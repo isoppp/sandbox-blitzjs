@@ -1,5 +1,5 @@
-import { AuthenticationError, Ctx } from 'blitz'
-import db, { UserUpdateInput, UserUpdateArgs } from 'db'
+import { Ctx } from 'blitz'
+import db, { UserUpdateArgs } from 'db'
 import { hashPassword } from '../../auth/auth-utils'
 
 type updateUserPasswordInput = Pick<UserUpdateArgs, 'where'> & {

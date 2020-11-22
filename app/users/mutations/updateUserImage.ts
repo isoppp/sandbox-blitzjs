@@ -1,6 +1,6 @@
 import { Ctx } from 'blitz'
-import db, { UserUpdateInput, UserUpdateArgs } from 'db'
-import { copyS3Object, S3KeyGen } from 'constants/aws'
+import db, { UserUpdateArgs } from 'db'
+import { copyS3Object } from 'constants/aws'
 import { AWS_S3_BUCKET_NAME, AWS_S3_PATH } from 'constants/aws-public'
 import cuid from 'cuid'
 import path from 'path'
