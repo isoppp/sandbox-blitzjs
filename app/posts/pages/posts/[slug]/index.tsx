@@ -4,8 +4,8 @@ import { BlitzPage, Link, useMutation, useParams, useQuery, useRouter } from 'bl
 import getPost from 'app/posts/queries/getPost'
 import deletePost from 'app/posts/mutations/deletePost'
 import { useCurrentUserFromSession } from 'app/hooks/useCurrentUser'
-import createLikePost from 'app/likePosts/mutations/createLikePost'
-import deleteLikePost from 'app/likePosts/mutations/deleteLikePost'
+import createLikePost from 'app/posts/likePosts/mutations/createLikePost'
+import deleteLikePost from 'app/posts/likePosts/mutations/deleteLikePost'
 import PostComments from '../../../components/PostComment'
 
 export const Post = () => {
@@ -31,15 +31,10 @@ export const Post = () => {
             id: post?.id,
           },
         },
-        user: {
-          connect: {
-            id: userId,
-          },
-        },
       },
     })
     await refetch()
-  }, [createLikePostMutation, post, refetch, userId])
+  }, [createLikePostMutation, post, refetch])
 
   const unlikePost = useCallback(async () => {
     if (!currentUserLike) return

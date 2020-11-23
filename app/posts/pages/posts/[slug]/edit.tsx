@@ -9,7 +9,8 @@ import { Post } from 'db'
 import { getSessionContext } from '@blitzjs/server'
 import { shouldBeSame, shouldHaveRole, validateAuthorizationConditions } from '../../../../../utils/authorization'
 import { USER_ROLE } from '../../../../../utils/userRole'
-import { PostFormInputType } from 'app/posts/validations'
+import { PostUpdateDataType } from 'app/posts/validations'
+import { removeEmptyFields } from 'utils/form'
 
 export const getServerSideProps: GetServerSideProps<{ [key: string]: any }, { slug: string }> = async (context) => {
   const post = await invokeWithMiddleware(getPost, { where: { slug: context?.params?.slug } }, context)
@@ -32,11 +33,11 @@ export const EditPost = ({ post }: { post: Post }) => {
   const router = useRouter()
   const [updatePostMutation] = useMutation(updatePost)
   const onSubmit = useCallback(
-    async (data: PostFormInputType) => {
+    async (data: PostUpdateDataType) => {
       try {
         const updated = await updatePostMutation({
           where: { id: post.id },
-          data,
+          data: removeEmptyFields(data),
         })
         alert('Success!' + JSON.stringify(updated))
         router.push(`/posts/${updated.slug}`)

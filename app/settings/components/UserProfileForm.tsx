@@ -19,7 +19,7 @@ const UserProfileForm = (props: UserProfileFormProps) => {
 
   return (
     <form className="block" onSubmit={handleSubmit(props.onSubmit)}>
-      <FormItem title="Display ID:" className="mt-4 first:mt-0">
+      <FormItem title="Name:" className="mt-4 first:mt-0">
         <InputText
           type="text"
           name="name"

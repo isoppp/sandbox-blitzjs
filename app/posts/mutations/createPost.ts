@@ -1,14 +1,10 @@
 import { Ctx } from 'blitz'
 import db from 'db'
-import { PostMutationInput, PostMutationInputType } from 'app/posts/validations'
+import { PostCreateData, PostCreateDataType } from 'app/posts/validations'
 
-export default async function createPost({ data }: { data: PostMutationInputType }, ctx: Ctx) {
+export default async function createPost({ data }: { data: PostCreateDataType }, ctx: Ctx) {
   ctx.session.authorize()
-  console.log({ data })
-
-  const parsed = PostMutationInput.parse(data)
-  console.log({ parsed })
-
+  const parsed = PostCreateData.parse(data)
   const post = await db.post.create({
     data: {
       ...parsed,

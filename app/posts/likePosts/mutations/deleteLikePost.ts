@@ -1,7 +1,7 @@
 import { Ctx } from 'blitz'
 import db, { LikePostDeleteArgs } from 'db'
-import { shouldBeSame, shouldHaveRole, validateAuthorizationConditions } from '../../../utils/authorization'
-import { USER_ROLE } from '../../../utils/userRole'
+import { shouldBeSame, shouldHaveRole, validateAuthorizationConditions } from 'utils/authorization'
+import { USER_ROLE } from 'utils/userRole'
 
 type DeleteLikePostInput = Pick<LikePostDeleteArgs, 'where'>
 

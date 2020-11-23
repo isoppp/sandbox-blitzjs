@@ -2,29 +2,28 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import Textarea from 'app/components/forms/Textarea'
-
-export type PostCommentFormValues = {
-  content: string
-  parentId: string
-}
-
+import { PostCommentFormInput, PostCommentFormInputType } from 'app/posts/validations'
+import { PostComment } from 'db'
+import { zodResolver } from '@hookform/resolvers/zod'
 type PostFormProps = {
-  initialValues?: PostCommentFormValues & any
-  onSubmit: (data: PostCommentFormValues) => void | Promise<void>
+  initialValues?: Partial<Pick<PostComment, 'parentId' | 'content'>>
+  onSubmit: (data: PostCommentFormInputType) => void | Promise<void>
   rows?: number
 }
 
 const PostCommentForm = (props: PostFormProps) => {
-  const { register, handleSubmit, watch, errors, reset } = useForm()
+  const { register, handleSubmit, watch, errors, reset } = useForm({
+    resolver: zodResolver(PostCommentFormInput),
+  })
   return (
     <form
       className="block"
       onSubmit={handleSubmit(async (values) => {
-        await props.onSubmit(values as PostCommentFormValues)
+        await props.onSubmit(values as PostCommentFormInputType)
         reset()
       })}
     >
-      <input type="hidden" name={'parentId'} defaultValue={props.initialValues.parentId ?? ''} ref={register} />
+      <input type="hidden" name={'parentId'} defaultValue={props?.initialValues?.parentId ?? ''} ref={register} />
       <FormItem title={''} className="mt-4 first:mt-0">
         <Textarea
           name="content"

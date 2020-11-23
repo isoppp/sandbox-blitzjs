@@ -10,7 +10,7 @@ export const PostsList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
   const [{ posts, hasMore }] = usePaginatedQuery(getPosts, {
-    orderBy: { id: 'asc' },
+    orderBy: { createdAt: 'desc' },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })

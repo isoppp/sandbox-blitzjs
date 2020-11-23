@@ -1,7 +1,7 @@
 import { Ctx } from 'blitz'
 import db, { PostCommentDeleteArgs } from 'db'
-import { shouldBeSame, shouldHaveRole, validateAuthorizationConditions } from '../../../utils/authorization'
-import { USER_ROLE } from '../../../utils/userRole'
+import { shouldBeSame, shouldHaveRole, validateAuthorizationConditions } from 'utils/authorization'
+import { USER_ROLE } from 'utils/userRole'
 
 type DeletePostCommentInput = Pick<PostCommentDeleteArgs, 'where'>
 

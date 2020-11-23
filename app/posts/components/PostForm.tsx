@@ -19,7 +19,7 @@ const PostForm = (props: PostFormProps) => {
   console.log({ errors, slug: errors.slug })
   return (
     <form className="block py-4" onSubmit={handleSubmit(props.onSubmit)}>
-      <FormItem title="Title:" className="mt-4 first:mt-0" error={errors?.title} required>
+      <FormItem title="Title:" className="mt-4 first:mt-0" error={errors?.title}>
         <InputText
           type="text"
           name="title"
@@ -28,7 +28,7 @@ const PostForm = (props: PostFormProps) => {
           defaultValue={props.initialValues?.title}
         />
       </FormItem>
-      <FormItem title="Slug:" className="mt-4 first:mt-0" error={errors.slug}>
+      <FormItem title="Slug:" className="mt-4 first:mt-0" error={errors.slug} optional>
         <InputText
           type="text"
           name="slug"
@@ -37,7 +37,7 @@ const PostForm = (props: PostFormProps) => {
           defaultValue={props.initialValues?.slug ?? null}
         />
       </FormItem>
-      <FormItem title="Content:" className="mt-4 first:mt-0" error={errors.content} required>
+      <FormItem title="Content:" className="mt-4 first:mt-0" error={errors.content}>
         <Textarea
           name="content"
           placeholder="My First Post's Content"

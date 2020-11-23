@@ -1,11 +1,12 @@
 import { useMutation, useQuery } from '@blitzjs/core'
-import getPostComments, { PostCommentsReturnValues } from 'app/postComments/queries/getPostComments'
-import createPostComment from 'app/postComments/mutations/createPostComment'
+import getPostComments, { PostCommentsReturnValues } from 'app/posts/postComments/queries/getPostComments'
+import createPostComment from 'app/posts/postComments/mutations/createPostComment'
 import { Fragment, useCallback, useMemo } from 'react'
-import PostCommentForm, { PostCommentFormValues } from './PostCommentForm'
+import PostCommentForm from './PostCommentForm'
 import { format } from 'date-fns'
 import { IoMdTrash } from 'react-icons/io'
-import deletePostComment from 'app/postComments/mutations/deletePostComment'
+import deletePostComment from 'app/posts/postComments/mutations/deletePostComment'
+import { PostCommentFormInputType } from 'app/posts/validations'
 
 type PostComment = PostCommentsReturnValues[0]
 type PostCommentsProps = {
@@ -39,7 +40,7 @@ const Comment = (props: CommentProps) => {
 export default function PostComments(props: PostCommentsProps) {
   const [{ postComments }, { refetch }] = useQuery(getPostComments, {
     where: { postId: props.postId },
-    orderBy: { id: 'asc' },
+    orderBy: { createdAt: 'desc' },
   })
   const { parentComments, childComments } = useMemo<{
     parentComments: PostComment[]
@@ -61,18 +62,13 @@ export default function PostComments(props: PostCommentsProps) {
   const [deletePostCommentMutation] = useMutation(deletePostComment)
 
   const onSubmit = useCallback(
-    async ({ parentId, content }: PostCommentFormValues) => {
+    async ({ parentId, content }: PostCommentFormInputType) => {
       await createPostCommentMutation({
         data: {
           content,
           post: {
             connect: {
               id: props.postId,
-            },
-          },
-          user: {
-            connect: {
-              id: props.userId,
             },
           },
           ...(parentId
@@ -88,7 +84,7 @@ export default function PostComments(props: PostCommentsProps) {
       })
       await refetch()
     },
-    [createPostCommentMutation, props.postId, props.userId, refetch],
+    [createPostCommentMutation, props.postId, refetch],
   )
 
   const onClickDelete = useCallback(
@@ -102,7 +98,7 @@ export default function PostComments(props: PostCommentsProps) {
   return (
     <div>
       <div className="mt-4">
-        <PostCommentForm onSubmit={onSubmit} initialValues={{}} />
+        <PostCommentForm onSubmit={onSubmit} />
       </div>
 
       <div className="mt-6 pt-6 border-t">
