@@ -2,6 +2,8 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import InputText from 'app/components/forms/InputText'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { UserProfileFormInput } from 'app/settings/validations'
 
 export type UserProfileFormValues = {
   displayId: string
@@ -15,11 +17,13 @@ type UserProfileFormProps = {
 }
 
 const UserProfileForm = (props: UserProfileFormProps) => {
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit, watch, errors } = useForm({
+    resolver: zodResolver(UserProfileFormInput),
+  })
 
   return (
     <form className="block" onSubmit={handleSubmit(props.onSubmit)}>
-      <FormItem title="Name:" className="mt-4 first:mt-0">
+      <FormItem title="Name:" className="mt-4 first:mt-0" error={errors?.name}>
         <InputText
           type="text"
           name="name"
@@ -28,7 +32,7 @@ const UserProfileForm = (props: UserProfileFormProps) => {
           defaultValue={props.initialValues?.name}
         />
       </FormItem>
-      <FormItem title="Display ID:" className="mt-4 first:mt-0">
+      <FormItem title="Display ID:" className="mt-4 first:mt-0" error={errors?.displayId}>
         <InputText
           type="text"
           name="displayId"
@@ -37,9 +41,9 @@ const UserProfileForm = (props: UserProfileFormProps) => {
           defaultValue={props.initialValues?.displayId}
         />
       </FormItem>
-      <FormItem title="Email:" className="mt-4 first:mt-0">
+      <FormItem title="Email:" className="mt-4 first:mt-0" error={errors?.email}>
         <InputText
-          type="text"
+          type="email"
           name="email"
           placeholder="example@example.com"
           ref={register}

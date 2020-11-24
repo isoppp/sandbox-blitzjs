@@ -3,15 +3,15 @@ import db, { UserUpdateArgs } from 'db'
 import { hashPassword } from '../../auth/auth-utils'
 
 type updateUserPasswordInput = Pick<UserUpdateArgs, 'where'> & {
-  data: { password: string; password_confirmation: string }
+  data: { password: string; passwordConfirmation: string }
 }
 
 export default async function updateUserPassword({ where, data }: updateUserPasswordInput, ctx: Ctx) {
   ctx.session.authorize()
 
-  if (data.password !== data.password_confirmation) {
+  if (data.password !== data.passwordConfirmation) {
     // TODO create error class
-    throw Error(JSON.stringify({ status: 400, error: 'password and password_confirmation is not the same' }))
+    throw Error(JSON.stringify({ status: 400, error: 'password and passwordConfirmation is not the same' }))
   }
 
   const hashedPassword = await hashPassword(data.password)

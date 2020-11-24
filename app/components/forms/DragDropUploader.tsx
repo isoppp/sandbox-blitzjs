@@ -144,7 +144,7 @@ const DragDropUploader = ({ uploadAsTemp = true, children }: Props) => {
       )}
 
       <ModalLayout isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} title={'Upload Image'}>
-        {!addedFile && !uploadedImage && !uploading && (
+        {isModalOpen && !addedFile && !uploadedImage && !uploading && (
           <DragDrop
             uppy={uppy}
             note="Images up to 512x512px"

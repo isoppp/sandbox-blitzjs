@@ -19,7 +19,7 @@ const UserImageForm = (props: UserImageFormProps) => {
       <DragDropUploader uploadAsTemp={true}>
         {({ uploadedImageUrl }) => (
           <>
-            <input key={uploadedImageUrl} type="hidden" name={`imageUrl`} value={uploadedImageUrl} ref={register} />
+            <input key={uploadedImageUrl} type="text" name={`imageUrl`} value={uploadedImageUrl} ref={register} />
             <div className="mt-6 flex justify-center">
               <button className="border rounded-md py-2 px-4 focus:outline-none bg-teal-600 text-white font-bold">
                 Submit!
