@@ -3,16 +3,11 @@ import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import InputText from 'app/components/forms/InputText'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { UserPasswordFormInput } from 'app/settings/validations'
-
-export type UserPasswordFormValues = {
-  password: string
-  passwordConfirmation: string
-}
+import { UserPasswordFormInput, UserPasswordFormInputType } from 'app/settings/validations'
 
 type UserPasswordFormProps = {
-  initialValues?: UserPasswordFormValues & any
-  onSubmit: (data: UserPasswordFormValues) => void
+  initialValues?: UserPasswordFormInputType
+  onSubmit: (data: UserPasswordFormInputType) => void
 }
 
 const UserPasswordForm = (props: UserPasswordFormProps) => {

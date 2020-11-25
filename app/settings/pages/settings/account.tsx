@@ -42,7 +42,7 @@ const SettingsAccountPage: BlitzPage<{ user: string }> = (props) => {
           {user.imageUrl ? (
             <UploadedImagePreview url={user.imageUrl} onDeleteFile={onDeleteUserImage} />
           ) : (
-            <UserImageForm onSubmit={onSubmitUserImage} initialValues={user} />
+            <UserImageForm onSubmit={onSubmitUserImage} />
           )}
         </div>
       </section>

@@ -5,10 +5,8 @@ import deleteUserImage from 'app/users/mutations/deleteUserImage'
 import updateUserImage from 'app/users/mutations/updateUserImage'
 import updateUserPassword from 'app/users/mutations/updateUserPassword'
 import updateUserProfile from 'app/users/mutations/updateUserProfile'
-import { UserImageFormValues } from 'app/settings/components/UserImageForm'
-import { UserProfileFormValues } from 'app/settings/components/UserProfileForm'
-import { UserPasswordFormValues } from 'app/settings/components/UserPasswordForm'
 import getUser from 'app/users/queries/getUser'
+import { UserImageFormInputType, UserPasswordFormInputType, UserProfileFormInputType } from 'app/settings/validations'
 
 export const useAccount = (user: PromiseReturnType<typeof getUser>) => {
   const router = useRouter()
@@ -19,7 +17,7 @@ export const useAccount = (user: PromiseReturnType<typeof getUser>) => {
   const [logoutMutation] = useMutation(logout)
 
   const onSubmitUserImage = useCallback(
-    async (data: UserImageFormValues) => {
+    async (data: UserImageFormInputType) => {
       try {
         const updated = await updateUserImageMutation({
           where: {
@@ -47,8 +45,7 @@ export const useAccount = (user: PromiseReturnType<typeof getUser>) => {
   }, [deleteUserImageMutation, router])
 
   const onSubmitUserProfile = useCallback(
-    async (data: UserProfileFormValues) => {
-      console.log(data)
+    async (data: UserProfileFormInputType) => {
       try {
         const updated = await updateUserProfileMutation({
           where: {
@@ -66,7 +63,7 @@ export const useAccount = (user: PromiseReturnType<typeof getUser>) => {
   )
 
   const onSubmitUserPassword = useCallback(
-    async (data: UserPasswordFormValues) => {
+    async (data: UserPasswordFormInputType) => {
       try {
         const updated = await updateUserPasswordMutation({
           where: {

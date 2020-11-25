@@ -1,18 +1,14 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import DragDropUploader from 'app/components/forms/DragDropUploader'
-
-export type UserImageFormValues = {
-  imageUrl: string
-}
+import { UserImageFormInputType } from 'app/settings/validations'
 
 type UserImageFormProps = {
-  initialValues?: UserImageFormValues & any
-  onSubmit: (data: UserImageFormValues) => void
+  onSubmit: (data: UserImageFormInputType) => void
 }
 
 const UserImageForm = (props: UserImageFormProps) => {
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit } = useForm()
 
   return (
     <form className="block" onSubmit={handleSubmit(props.onSubmit)}>

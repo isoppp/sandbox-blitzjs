@@ -8,9 +8,6 @@ export const UserImageFormInput = z.object({
 
 export type UserImageFormInputType = z.infer<typeof UserImageFormInput>
 
-export const UserImageUpdateData = UserImageFormInput
-export type UserImageUpdateDataType = UserImageFormInputType
-
 // profile
 export const UserProfileFormInput = z.object({
   displayId: urlPath.min(6).max(128),
@@ -19,9 +16,6 @@ export const UserProfileFormInput = z.object({
 })
 
 export type UserProfileFormInputType = z.infer<typeof UserProfileFormInput>
-
-export const UserProfileUpdateData = UserProfileFormInput
-export type UserProfileUpdateDataType = UserProfileFormInputType
 
 // password
 
