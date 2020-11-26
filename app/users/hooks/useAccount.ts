@@ -6,7 +6,7 @@ import updateUserImage from 'app/users/mutations/updateUserImage'
 import updateUserPassword from 'app/users/mutations/updateUserPassword'
 import updateUserProfile from 'app/users/mutations/updateUserProfile'
 import getUser from 'app/users/queries/getUser'
-import { UserImageFormInputType, UserPasswordFormInputType, UserProfileFormInputType } from 'app/settings/validations'
+import { UserImageFormInputType, UserPasswordFormInputType, UserProfileFormInputType } from 'app/users/validations'
 
 export const useAccount = (user: PromiseReturnType<typeof getUser>) => {
   const router = useRouter()

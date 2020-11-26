@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import InputText from 'app/components/forms/InputText'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { UserProfileFormInput, UserProfileFormInputType } from 'app/settings/validations'
+import { UserProfileFormInput, UserProfileFormInputType } from 'app/users/validations'
 
 type UserProfileFormProps = {
   initialValues?: UserProfileFormInputType

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import InputText from 'app/components/forms/InputText'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { UserPasswordFormInput, UserPasswordFormInputType } from 'app/settings/validations'
+import { UserPasswordFormInput, UserPasswordFormInputType } from 'app/users/validations'
 
 type UserPasswordFormProps = {
   initialValues?: UserPasswordFormInputType
