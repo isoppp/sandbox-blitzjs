@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { UserPasswordFormInput, UserPasswordFormInputType } from 'app/users/validations'
 
 type UserPasswordFormProps = {
-  initialValues?: UserPasswordFormInputType
   onSubmit: (data: UserPasswordFormInputType) => void
 }
 

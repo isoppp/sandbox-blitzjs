@@ -1,3 +1,5 @@
+import getUser from 'app/users/queries/getUser'
+import { PromiseReturnType } from 'blitz'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
@@ -6,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { UserProfileFormInput, UserProfileFormInputType } from 'app/users/validations'
 
 type UserProfileFormProps = {
-  initialValues?: UserProfileFormInputType
+  initialValues?: PromiseReturnType<typeof getUser>
   onSubmit: (data: UserProfileFormInputType) => void
 }
 
@@ -23,7 +25,7 @@ const UserProfileForm = (props: UserProfileFormProps) => {
           name="name"
           placeholder="your name"
           ref={register}
-          defaultValue={props.initialValues?.name}
+          defaultValue={props.initialValues?.name ?? ''}
         />
       </FormItem>
       <FormItem title="Display ID:" className="mt-4 first:mt-0" error={errors?.displayId}>

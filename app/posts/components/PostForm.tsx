@@ -2,13 +2,13 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import FormItem from 'app/components/forms/FormItem'
 import InputText from 'app/components/forms/InputText'
-import { PostFormInput, PostFormInputType } from 'app/posts/validations'
+import { PostFormInput, PostFormInputType, PostUpdateDataType } from 'app/posts/validations'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Textarea from 'app/components/forms/Textarea'
 
 type PostFormProps = {
   initialValues?: PostFormInputType & any
-  onSubmit: (data: PostFormInputType) => void
+  onSubmit: (data: PostUpdateDataType) => Promise<void>
 }
 
 const PostForm = (props: PostFormProps) => {

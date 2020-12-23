@@ -5,10 +5,10 @@ import superjson from 'superjson'
 import { getSessionContext } from '@blitzjs/server'
 import { validateAuthorizationConditions } from 'utils/authorization'
 import getUser from 'app/users/queries/getUser'
-import { useAccount } from 'app/settings/hooks/useAccount'
-import UserImageForm from 'app/settings/components/UserImageForm'
-import UserPasswordForm from 'app/settings/components/UserPasswordForm'
-import UserProfileForm from 'app/settings/components/UserProfileForm'
+import { useAccount } from 'app/users/hooks/useAccount'
+import UserImageForm from 'app/users/components/UserImageForm'
+import UserPasswordForm from 'app/users/components/UserPasswordForm'
+import UserProfileForm from 'app/users/components/UserProfileForm'
 import { UploadedImagePreview } from 'app/components/forms/UploadedImagePreview'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -57,7 +57,7 @@ const SettingsAccountPage: BlitzPage<{ user: string }> = (props) => {
       <section className="mt-10 first:mt-0 pt-10 first:pt-0">
         <h2 className="mb-8 font-bold text-2xl border-b-4">Password</h2>
         <div className="first:mt-0">
-          <UserPasswordForm onSubmit={onSubmitUserPassword} initialValues={user} />
+          <UserPasswordForm onSubmit={onSubmitUserPassword} />
         </div>
       </section>
 
