@@ -1,4 +1,5 @@
-import * as z from "zod"
+import * as z from 'zod'
+import { email, password } from 'constants/zod'
 
 export const SignupInput = z.object({
   email: z.string().email(),
@@ -7,7 +8,7 @@ export const SignupInput = z.object({
 export type SignupInputType = z.infer<typeof SignupInput>
 
 export const LoginInput = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: email,
+  password: password,
 })
 export type LoginInputType = z.infer<typeof LoginInput>
